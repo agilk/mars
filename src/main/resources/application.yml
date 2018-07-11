@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: cards
+  datasource:
+    url: jdbc:mysql://localhost:3306/mars
+    username: mars
+    password: mars
+    driver-class-name: com.mysql.jdbc.Driver
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
+
+server:
+  port: 19001
