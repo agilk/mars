@@ -1,0 +1,449 @@
+{
+	"info": {
+		"_postman_id": "d6258816-f65a-49b6-a257-404e306d3923",
+		"name": "Mars",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "getAllCardsByDecks",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"decks\":[2,3]\n}"
+				},
+				"url": {
+					"raw": "http://localhost:19001/getAllCardsByDecks",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "19001",
+					"path": [
+						"getAllCardsByDecks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "startNewGame",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"decks\":[1]\n}"
+				},
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "newGeneration",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"gameId\":10\n}\n"
+				},
+				"url": {
+					"raw": "http://localhost:19001/newGeneration",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "19001",
+					"path": [
+						"newGeneration"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "pickUpCard",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"gameId\":10,\n\t\"playerId\": 1,\n\t\"cardId\": 10\n}\n"
+				},
+				"url": {
+					"raw": "http://localhost:19001/pickUpCard",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "19001",
+					"path": [
+						"pickUpCard"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "pickUpCards",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"gameId\":10,\n\t\"playerId\": 1,\n\t\"cards\": []\n}\n"
+				},
+				"url": {
+					"raw": "http://localhost:19001/pickUpCards",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "19001",
+					"path": [
+						"pickUpCards"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "useCard",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"gameId\":16,\n\t\"playerId\": 1,\n\t\"cardId\": 48\n}\n"
+				},
+				"url": {
+					"raw": "http://localhost:19001/useCard",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "19001",
+					"path": [
+						"useCard"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getCardById",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"gameId\":16,\n\t\"playerId\": 1,\n\t\"cardId\": 48\n}\n"
+				},
+				"url": {
+					"raw": "http://localhost:19001/useCard",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "19001",
+					"path": [
+						"useCard"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "sellCard",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"gameId\":16,\n\t\"playerId\": 1,\n\t\"cardId\": 146\n}\n"
+				},
+				"url": {
+					"raw": "http://localhost:19001/sellCard",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "19001",
+					"path": [
+						"sellCard"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "useCardWithSteel",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"gameId\":16,\n\t\"playerId\": 1,\n\t\"cardId\": 117\n}\n"
+				},
+				"url": {
+					"raw": "http://localhost:19001/useCardWithSteel",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "19001",
+					"path": [
+						"useCardWithSteel"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "useCardWithTitan",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"gameId\":16,\n\t\"playerId\": 1,\n\t\"cardId\": 117\n}\n"
+				},
+				"url": {
+					"raw": "http://localhost:19001/useCardWithTitan",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "19001",
+					"path": [
+						"useCardWithTitan"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "showRandomCard",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"gameId\":10,\n\t\"playerId\":1\n}"
+				},
+				"url": {
+					"raw": "http://localhost:19001/showRandomCard",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "19001",
+					"path": [
+						"showRandomCard"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "pickUpCardForFree",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"gameId\":10,\n\t\"playerId\": 1,\n\t\"cardId\": 75\n}\n"
+				},
+				"url": {
+					"raw": "http://localhost:19001/pickUpFreeCard",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "19001",
+					"path": [
+						"pickUpFreeCard"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "raiseTemperatureByHeat",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"gameId\":10,\n\t\"playerId\": 1\n}\n"
+				},
+				"url": {
+					"raw": "http://localhost:19001/raiseTemperatureByHeat",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "19001",
+					"path": [
+						"raiseTemperatureByHeat"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addGreenery",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"gameId\":10,\n\t\"playerId\": 1\n}\n"
+				},
+				"url": {
+					"raw": "http://localhost:19001/addGreenery",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "19001",
+					"path": [
+						"addGreenery"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addGreeneryForMoney",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"gameId\":10,\n\t\"playerId\": 1\n}\n"
+				},
+				"url": {
+					"raw": "http://localhost:19001/addGreeneryForMoney",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "19001",
+					"path": [
+						"addGreeneryForMoney"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addOcean",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"gameId\":16,\n\t\"playerId\": 1\n}\n"
+				},
+				"url": {
+					"raw": "http://localhost:19001/addOcean",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "19001",
+					"path": [
+						"addOcean"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
