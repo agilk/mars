@@ -32,6 +32,7 @@ public class GameCard {
         this.card = card;
         this.playerId = 0;
         this.generationId = 0;
+        this.picked = 0;
     }
 
     public Integer getId() {
