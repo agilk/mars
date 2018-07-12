@@ -54,6 +54,34 @@
 			"response": []
 		},
 		{
+			"name": "showGenerationCards",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"decks\":[1]\n}"
+				},
+				"url": {
+					"raw": "http://localhost:19001/showGenerationCards",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "19001",
+					"path": [
+						"showGenerationCards"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "newGeneration",
 			"request": {
 				"method": "POST",
@@ -93,17 +121,17 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"gameId\":10,\n\t\"playerId\": 1,\n\t\"cardId\": 10\n}\n"
+					"raw": "{\n\t\"gameId\":28,\n\t\"playerId\": 1,\n\t\"cardId\": 10\n}\n"
 				},
 				"url": {
-					"raw": "http://localhost:19001/pickUpCard",
+					"raw": "http://localhost:19001/buyCard",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "19001",
 					"path": [
-						"pickUpCard"
+						"buyCard"
 					]
 				}
 			},

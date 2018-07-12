@@ -1,4 +1,4 @@
-package az.kerimov.mars;
+package az.kerimov.mars.entity;
 
 import javax.persistence.*;
 
@@ -11,6 +11,10 @@ public class GamePlayerMat {
     @ManyToOne
     @JoinColumn(name = "game_id")
     private Game game;
+
+    @ManyToOne
+    @JoinColumn(name = "player_id")
+    private Player player;
 
     private Integer rating;
 
@@ -52,23 +56,42 @@ public class GamePlayerMat {
 
     public GamePlayerMat() {
     }
-    public GamePlayerMat(Game game, char mode) {
+    public GamePlayerMat(Game game, char mode, Player player) {
         this.game = game;
+        this.player = player;
         switch(mode) {
             case 's': {
                 this.rating = 14;
-                this.prodMoney = 1;
-                this.prodSteel = 1;
-                this.prodTitan = 1;
-                this.prodPlant = 1;
-                this.prodEnergy = 1;
-                this.prodHeat = 1;
-                this.money = 42;
-                this.steel = 1;
-                this.titan = 1;
-                this.plant = 1;
-                this.energy = 1;
-                this.heat = 1;
+                this.prodMoney = 0;
+                this.prodSteel = 0;
+                this.prodTitan = 0;
+                this.prodPlant = 0;
+                this.prodEnergy = 0;
+                this.prodHeat = 0;
+                this.money = 0;
+                this.steel = 0;
+                this.titan = 0;
+                this.plant = 0;
+                this.energy = 0;
+                this.heat = 0;
+                this.tileGreen = 0;
+                this.tileCity = 0;
+                break;
+            }
+            case 'm': {
+                this.rating = 20;
+                this.prodMoney = 0;
+                this.prodSteel = 0;
+                this.prodTitan = 0;
+                this.prodPlant = 0;
+                this.prodEnergy = 0;
+                this.prodHeat = 0;
+                this.money = 0;
+                this.steel = 0;
+                this.titan = 0;
+                this.plant = 0;
+                this.energy = 0;
+                this.heat = 0;
                 this.tileGreen = 0;
                 this.tileCity = 0;
                 break;
@@ -210,5 +233,12 @@ public class GamePlayerMat {
 
     public void setTileCity(Integer tileCity) {
         this.tileCity = tileCity;
+    }
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
     }
 }

@@ -4,11 +4,13 @@ import java.util.List;
 
 public class Request {
     private Integer gameId;
+    private String gameHash;
     private Integer cardId;
     private Integer generationId;
     private Integer playerId;
     private List<Integer> decks;
     private List<Integer> cards;
+    private List<String> players;
     private Integer resourceCount;
 
     public Integer getGameId() {
@@ -17,6 +19,14 @@ public class Request {
 
     public void setGameId(Integer gameId) {
         this.gameId = gameId;
+    }
+
+    public String getGameHash() {
+        return gameHash;
+    }
+
+    public void setGameHash(String gameHash) {
+        this.gameHash = gameHash;
     }
 
     public Integer getCardId() {
@@ -42,6 +52,14 @@ public class Request {
     public void setCardId(Integer cardId) {
         this.cardId = cardId;
 
+    }
+
+    public List<String> getPlayers() {
+        return players;
+    }
+
+    public void setPlayers(List<String> players) {
+        this.players = players;
     }
 
     public List<Integer> getDecks() {

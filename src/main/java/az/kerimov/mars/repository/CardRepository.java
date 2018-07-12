@@ -1,7 +1,8 @@
-package az.kerimov.mars;
+package az.kerimov.mars.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import az.kerimov.mars.entity.*;
 
 import java.util.List;
 

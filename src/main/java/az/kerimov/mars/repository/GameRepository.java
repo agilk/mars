@@ -1,10 +1,11 @@
-package az.kerimov.mars;
+package az.kerimov.mars.repository;
 
+import az.kerimov.mars.entity.Game;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public interface GameRepository extends JpaRepository<Game, Integer> {
-    Game findById(Integer id);
+    Game findByIdAndHash(Integer id, String hash);
 
 }

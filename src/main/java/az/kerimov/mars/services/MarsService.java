@@ -1,5 +1,7 @@
-package az.kerimov.mars;
+package az.kerimov.mars.services;
 
+import az.kerimov.mars.entity.*;
+import az.kerimov.mars.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,17 +24,15 @@ public class MarsService {
     @Autowired
     private GamePlayerCardRepository gamePlayerCardRepository;
     @Autowired
+    private PlayerRepository playerRepository;
+    @Autowired
     private GamePlayerMatRepository gamePlayerMatRepository;
 
-    public List<Card> getAllCards() {
-        return cardRepository.findAll();
-    }
-
-    public List<Card> getAllCardsByDecks(CardDeck deck) {
+    private List<Card> getAllCardsByDecks(CardDeck deck) {
         return cardRepository.findAllByCardDeck(deck);
     }
 
-    public List<Card> getAllCardsByDecks(List<Integer> decks) {
+    private List<Card> getAllCardsByDecks(List<Integer> decks) {
         List<Card> cards = new ArrayList<>();
         for (Integer i : decks) {
             CardDeck deck = cardDeckRepository.findById(i);
@@ -41,22 +41,29 @@ public class MarsService {
         return cards;
     }
 
-    public List<CardDeck> getAllDecks() {
-        return cardDeckRepository.findAll();
-    }
 
     public Card getCardById(Integer id) {
-        return cardRepository.findById(id);
+        return gameCardRepository.findById(id).getCard();
     }
 
-    public Game getGameById(Integer id) {
-        return gameRepository.findById(id);
+    public Game getGameByIdAndHash(Integer id, String hash) {
+        return gameRepository.findByIdAndHash(id, hash);
     }
 
-    public Integer startNewGame(List<Integer> decks) {
+    public Game startNewGame(List<Integer> decks, List<String> players) {
 
-        Game game = new Game();
+        char mode = players.size()==1?'s':'m';
+
+        Game game = new Game(mode);
         gameRepository.save(game);
+
+        for(String pl: players){
+            Player p = new Player(game, pl);
+            playerRepository.save(p);
+
+            GamePlayerMat gamePlayerMat = new GamePlayerMat(game, mode, p);
+            gamePlayerMatRepository.save(gamePlayerMat);
+        }
 
 
         for (Card card : getAllCardsByDecks(decks)) {
@@ -64,17 +71,18 @@ public class MarsService {
             gameCardRepository.save(gameCard);
         }
 
-        GamePlayerMat gamePlayerMat = new GamePlayerMat(game, 's');
-        gamePlayerMatRepository.save(gamePlayerMat);
-
-        return game.getId();
+        return game;
     }
 
-    public List<GameCard> getAvailableCards(Game game) {
+    public List<Player> getPlayersOfGame(Game game){
+        return playerRepository.findAllByGame(game);
+    }
+
+    private List<GameCard> getAvailableCards(Game game) {
         return gameCardRepository.findAllByGameAndGenerationIdAndPlayerId(game, 0, 0);
     }
 
-    public GameCard showRandomCard(Game game, Integer playerId) {
+    private GameCard showRandomCard(Game game, Integer playerId) {
 
         List<GameCard> cards = getAvailableCards(game);
 
@@ -91,51 +99,83 @@ public class MarsService {
         return gameCard;
     }
 
-    public List<Card> showRandomCards(Game game, Integer playerId) {
-        Integer countCard = game.getGeneration() == 1 ? 10 : 4;
-        List<Card> cards = new ArrayList<>();
-        for (int i = 0; i < countCard; i++) {
-            cards.add(showRandomCard(game, playerId).getCard());
+    public GameCard showRandomCard(Integer gameId, String gameHash, Integer playerId){
+        Game game = gameRepository.findByIdAndHash(gameId, gameHash);
+        return showRandomCard(game, playerId);
+
+    }
+
+    private List<GameCard> showGenerationCards(Game game, Integer playerId) {
+        List<GameCard> cards = new ArrayList<>();
+        if (gameCardRepository.findAllByGameAndGenerationIdAndPlayerId(game, game.getGeneration(), playerId).size()==0) {
+            Integer countCard = game.getGeneration() == 1 ? 10 : 4;
+            for (int i = 0; i < countCard; i++) {
+                cards.add(showRandomCard(game, playerId));
+            }
         }
         return cards;
     }
 
-    public Integer sellCard(Integer playerId, Game game, Card card){
-        GamePlayerMat gamePlayerMat = gamePlayerMatRepository.findByGame(game);
+    public List<GameCard> showGenerationCards(Integer gameId, String gameHash, Integer playerId) {
+        Game game = gameRepository.findByIdAndHash(gameId, gameHash);
+        return showGenerationCards(game, playerId);
+
+    }
+
+    public void sellCard(Integer playerId, Game game, Card card){
+        GamePlayerMat gamePlayerMat = gamePlayerMatRepository.findByGameAndPlayer(game, playerRepository.findById(playerId));
         GamePlayerCard gamePlayerCard = gamePlayerCardRepository.findByGameAndCard(game, card);
         gamePlayerCard.setGenerationId(-1);
         gamePlayerMat.setMoney(gamePlayerMat.getMoney()+1);
         gamePlayerCardRepository.save(gamePlayerCard);
         gamePlayerMatRepository.save(gamePlayerMat);
-        return 1;
     }
 
-    public Integer pickUpCards(Integer playerId, Game game, List<Card> cards) {
-        int cnt = 0;
-        for (Card card : cards) {
-            cnt++;
-            pickUpCard(playerId, game, card);
+    public List<Card> pickUpCards(Integer playerId, Integer gameId, String gameHash, List<Integer> cardIds) throws Exception {
+        List<GameCard> gameCards = new ArrayList<>();
+        for (Integer i: cardIds){
+            gameCards.add(gameCardRepository.findById(i));
         }
-        return cnt;
+        Game game = gameRepository.findByIdAndHash( gameId, gameHash);
+        return pickUpCards(playerId, game, gameCards);
     }
 
-    public Integer pickUpCard(Integer playerId, Game game, Card card) {
-        GamePlayerMat gamePlayerMat = gamePlayerMatRepository.findByGame(game);
+    private List<Card> pickUpCards(Integer playerId, Game game, List<GameCard> cards) throws Exception {
+        List<Card> res = new ArrayList<>();
+        for (GameCard card : cards) {
+            res.add(pickUpCard(playerId, game, card));
+        }
+        return res;
+    }
+
+    public Card pickUpCard(Integer playerId, Integer gameId, String gameHash, Integer cardId) throws Exception {
+        Game game = gameRepository.findByIdAndHash(gameId, gameHash);
+        GameCard gameCard = gameCardRepository.findById(cardId);
+        return pickUpCard(playerId, game, gameCard);
+    }
+
+    private Card pickUpCard(Integer playerId, Game game, GameCard card) throws Exception {
+        GamePlayerMat gamePlayerMat = gamePlayerMatRepository.findByGameAndPlayer(game, playerRepository.findById(playerId));
+        GameCard gameCard = gameCardRepository.findByGameAndCard(game, card.getCard());
         if (gamePlayerMat.getMoney() >= 3) {
             gamePlayerMat.setMoney(gamePlayerMat.getMoney() - 3);
             GamePlayerCard gamePlayerCard = new GamePlayerCard();
-            gamePlayerCard.setCard(card);
+            gamePlayerCard.setCard(card.getCard());
             gamePlayerCard.setGame(game);
             gamePlayerCard.setGenerationId(0);
+            gamePlayerCard.setPlayer(playerRepository.findById(playerId));
+            gameCard.setPicked(1);
             gamePlayerMatRepository.save(gamePlayerMat);
             gamePlayerCardRepository.save(gamePlayerCard);
-            return card.getId();
+            gameCardRepository.save(gameCard);
+            return card.getCard();
+        }else{
+            throw new Exception("not enough money");
         }
-        return -1;
     }
 
     public Integer pickUpFreeCard(Integer playerId, Game game, Card card) {
-        GamePlayerMat gamePlayerMat = gamePlayerMatRepository.findByGame(game);
+        GamePlayerMat gamePlayerMat = gamePlayerMatRepository.findByGameAndPlayer(game, playerRepository.findById(playerId));
         GamePlayerCard gamePlayerCard = new GamePlayerCard();
         gamePlayerCard.setCard(card);
         gamePlayerCard.setGame(game);
@@ -145,38 +185,36 @@ public class MarsService {
         return card.getId();
     }
 
-    public Integer raiseOceans(Integer playerId, Game game) {
+    private void raiseOceans(Integer playerId, Game game) {
         if (game.getOceans() >= 9) {
-            return 1;
+            return;
         }
-        GamePlayerMat gamePlayerMat = gamePlayerMatRepository.findByGame(game);
+        GamePlayerMat gamePlayerMat = gamePlayerMatRepository.findByGameAndPlayer(game, playerRepository.findById(playerId));
         game.setOceans(game.getOceans() + 1);
         gameRepository.save(game);
         gamePlayerMat.setRating(gamePlayerMat.getRating() + 1);
         gamePlayerMatRepository.save(gamePlayerMat);
-        return 1;
     }
 
-    public Integer raiseOxygene(Integer playerId, Game game) {
-        if (game.getOxygene() >= 14) {
-            return 1;
+    private void raiseOxygen(Integer playerId, Game game) {
+        if (game.getOxygen() >= 14) {
+            return;
         }
-        GamePlayerMat gamePlayerMat = gamePlayerMatRepository.findByGame(game);
-        game.setOxygene(game.getOxygene() + 1);
+        GamePlayerMat gamePlayerMat = gamePlayerMatRepository.findByGameAndPlayer(game, playerRepository.findById(playerId));
+        game.setOxygen(game.getOxygen() + 1);
         gameRepository.save(game);
         gamePlayerMat.setRating(gamePlayerMat.getRating() + 1);
-        if (game.getOxygene() == 8) {
+        if (game.getOxygen() == 8) {
             raiseTemperature(playerId, game);
         }
         gamePlayerMatRepository.save(gamePlayerMat);
-        return 1;
     }
 
-    public Integer raiseTemperature(Integer playerId, Game game) {
+    private void raiseTemperature(Integer playerId, Game game) {
         if (game.getTemperature() >= 8) {
-            return 1;
+            return;
         }
-        GamePlayerMat gamePlayerMat = gamePlayerMatRepository.findByGame(game);
+        GamePlayerMat gamePlayerMat = gamePlayerMatRepository.findByGameAndPlayer(game, playerRepository.findById(playerId));
         game.setTemperature(game.getTemperature() + 2);
         gameRepository.save(game);
         gamePlayerMat.setRating(gamePlayerMat.getRating() + 1);
@@ -187,60 +225,54 @@ public class MarsService {
             raiseOceans(playerId, game);
         }
         gamePlayerMatRepository.save(gamePlayerMat);
-        return 1;
     }
 
-    public Integer raiseTemperatureByHeat(Integer playerId, Game game) {
-        GamePlayerMat gamePlayerMat = gamePlayerMatRepository.findByGame(game);
+    public void raiseTemperatureByHeat(Integer playerId, Game game) {
+        GamePlayerMat gamePlayerMat = gamePlayerMatRepository.findByGameAndPlayer(game, playerRepository.findById(playerId));
         if (gamePlayerMat.getHeat() >= 8) {
             raiseTemperature(playerId, game);
             gamePlayerMat.setHeat(gamePlayerMat.getHeat() - 8);
             gamePlayerMatRepository.save(gamePlayerMat);
         }
-        return 1;
     }
 
-    public Integer addGreenery(Integer playerId, Game game) {
-        GamePlayerMat gamePlayerMat = gamePlayerMatRepository.findByGame(game);
+    public void addGreenery(Integer playerId, Game game) {
+        GamePlayerMat gamePlayerMat = gamePlayerMatRepository.findByGameAndPlayer(game, playerRepository.findById(playerId));
         if (gamePlayerMat.getPlant() >= 8) {
-            raiseOxygene(playerId, game);
+            raiseOxygen(playerId, game);
             gamePlayerMat.setPlant(gamePlayerMat.getPlant() - 8);
             gamePlayerMat.setTileGreen(gamePlayerMat.getTileGreen() + 1);
             gamePlayerMatRepository.save(gamePlayerMat);
         }
-        return 1;
     }
 
-    public Integer addOcean(Integer playerId, Game game) {
-        GamePlayerMat gamePlayerMat = gamePlayerMatRepository.findByGame(game);
+    public void addOcean(Integer playerId, Game game) {
+        GamePlayerMat gamePlayerMat = gamePlayerMatRepository.findByGameAndPlayer(game, playerRepository.findById(playerId));
         if (gamePlayerMat.getMoney() >= 18) {
             raiseOceans(playerId, game);
             gamePlayerMat.setMoney(gamePlayerMat.getMoney() - 18);
             gamePlayerMatRepository.save(gamePlayerMat);
         }
-        return 1;
     }
 
-    public Integer addGreeneryForMoney(Integer playerId, Game game) {
-        GamePlayerMat gamePlayerMat = gamePlayerMatRepository.findByGame(game);
+    public void addGreeneryForMoney(Integer playerId, Game game) {
+        GamePlayerMat gamePlayerMat = gamePlayerMatRepository.findByGameAndPlayer(game, playerRepository.findById(playerId));
         if (gamePlayerMat.getMoney() >= 23) {
-            raiseOxygene(playerId, game);
+            raiseOxygen(playerId, game);
             gamePlayerMat.setMoney(gamePlayerMat.getMoney() - 23);
             gamePlayerMat.setTileGreen(gamePlayerMat.getTileGreen() + 1);
             gamePlayerMatRepository.save(gamePlayerMat);
         }
-        return 1;
     }
 
-    public Integer raiseRating(Integer playerId, Game game) {
-        GamePlayerMat gamePlayerMat = gamePlayerMatRepository.findByGame(game);
+    private void raiseRating(Integer playerId, Game game) {
+        GamePlayerMat gamePlayerMat = gamePlayerMatRepository.findByGameAndPlayer(game, playerRepository.findById(playerId));
         gamePlayerMat.setRating(gamePlayerMat.getRating() + 1);
         gamePlayerMatRepository.save(gamePlayerMat);
-        return 1;
     }
 
-    public Integer raiseMat(Integer playerId, Game game, char res, boolean prod, Integer count) {
-        GamePlayerMat gamePlayerMat = gamePlayerMatRepository.findByGame(game);
+    private void raiseMat(Integer playerId, Game game, char res, boolean prod, Integer count) {
+        GamePlayerMat gamePlayerMat = gamePlayerMatRepository.findByGameAndPlayer(game, playerRepository.findById(playerId));
         for (int i = 0; i < count; i++) {
             switch (res) {
                 case 'm': {
@@ -294,11 +326,10 @@ public class MarsService {
             }
         }
         gamePlayerMatRepository.save(gamePlayerMat);
-        return 1;
     }
 
-    public Integer checkCardRequirements(Integer playerId, Game game, Card card, boolean useResource, char resource, Integer resourceCount) throws Exception {
-        GamePlayerMat gamePlayerMat = gamePlayerMatRepository.findByGame(game);
+    private void checkCardRequirements(Integer playerId, Game game, Card card, boolean useResource, char resource, Integer resourceCount) throws Exception {
+        GamePlayerMat gamePlayerMat = gamePlayerMatRepository.findByGameAndPlayer(game, playerRepository.findById(playerId));
 
         Integer resourceMoney = 0;
 
@@ -333,8 +364,8 @@ public class MarsService {
             throw new Exception("Oceans mismatch");
         }
 
-        if (game.getOxygene() < card.getReqMinOxyg() || game.getOxygene() > card.getReqMaxOxyg()) {
-            throw new Exception("Oxygene mismatch");
+        if (game.getOxygen() < card.getReqMinOxyg() || game.getOxygen() > card.getReqMaxOxyg()) {
+            throw new Exception("Oxygen mismatch");
         }
 
         if (game.getTemperature() < card.getReqMinTemp() || game.getTemperature() > card.getReqMaxTemp()) {
@@ -349,11 +380,10 @@ public class MarsService {
             throw new Exception("City mismatch");
         }
 
-        return 1;
     }
 
-    public Integer useCard(Integer playerId, Game game, Card cardX, boolean useResource, char resource, Integer resourceCount) {
-        GamePlayerMat gamePlayerMat = gamePlayerMatRepository.findByGame(game);
+    public void useCard(Integer playerId, Game game, Card cardX, boolean useResource, char resource, Integer resourceCount) {
+        GamePlayerMat gamePlayerMat = gamePlayerMatRepository.findByGameAndPlayer(game, playerRepository.findById(playerId));
         GamePlayerCard gamePlayerCard = gamePlayerCardRepository.findByGameAndCard(game, cardX);
         Card card = gamePlayerCard.getCard();
         try {
@@ -367,7 +397,7 @@ public class MarsService {
             }
 
             for (int i = 0; i < card.getTerrEffOxygen(); i++) {
-                raiseOxygene(playerId, game);
+                raiseOxygen(playerId, game);
             }
 
             for (int i = 0; i < card.getTerrEffTemp(); i++) {
@@ -423,25 +453,24 @@ public class MarsService {
             gamePlayerCardRepository.save(gamePlayerCard);
 
 
-            return 1;
         } catch (Exception e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
-            return -1;
         }
     }
 
-    public Integer newGeneration(Game game) {
+    public void newGeneration(Game game) {
         game.setGeneration(game.getGeneration() + 1);
-        GamePlayerMat gamePlayerMat = gamePlayerMatRepository.findByGame(game);
-        gamePlayerMat.setMoney(gamePlayerMat.getMoney() + gamePlayerMat.getRating() + gamePlayerMat.getProdMoney());
-        gamePlayerMat.setSteel(gamePlayerMat.getSteel() + gamePlayerMat.getProdSteel());
-        gamePlayerMat.setTitan(gamePlayerMat.getTitan() + gamePlayerMat.getProdTitan());
-        gamePlayerMat.setPlant(gamePlayerMat.getPlant() + gamePlayerMat.getProdPlant());
-        gamePlayerMat.setHeat(gamePlayerMat.getHeat() + gamePlayerMat.getProdHeat() + gamePlayerMat.getEnergy());
-        gamePlayerMat.setEnergy(gamePlayerMat.getProdEnergy());
-        gamePlayerMatRepository.save(gamePlayerMat);
+        for (Player player: playerRepository.findAllByGame(game)) {
+            GamePlayerMat gamePlayerMat = gamePlayerMatRepository.findByGameAndPlayer(game, player);
+            gamePlayerMat.setMoney(gamePlayerMat.getMoney() + gamePlayerMat.getRating() + gamePlayerMat.getProdMoney());
+            gamePlayerMat.setSteel(gamePlayerMat.getSteel() + gamePlayerMat.getProdSteel());
+            gamePlayerMat.setTitan(gamePlayerMat.getTitan() + gamePlayerMat.getProdTitan());
+            gamePlayerMat.setPlant(gamePlayerMat.getPlant() + gamePlayerMat.getProdPlant());
+            gamePlayerMat.setHeat(gamePlayerMat.getHeat() + gamePlayerMat.getProdHeat() + gamePlayerMat.getEnergy());
+            gamePlayerMat.setEnergy(gamePlayerMat.getProdEnergy());
+            gamePlayerMatRepository.save(gamePlayerMat);
+        }
         gameRepository.save(game);
-        return 1;
     }
 }

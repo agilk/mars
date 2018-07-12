@@ -1,4 +1,4 @@
-package az.kerimov.mars;
+package az.kerimov.mars.entity;
 
 import javax.persistence.*;
 

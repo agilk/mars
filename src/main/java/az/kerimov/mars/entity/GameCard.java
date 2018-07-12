@@ -1,9 +1,9 @@
-package az.kerimov.mars;
+package az.kerimov.mars.entity;
 
 import javax.persistence.*;
 
-@Entity(name = "mars_player_cards")
-public class GamePlayerCard {
+@Entity(name = "mars_game_cards")
+public class GameCard {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -16,8 +16,23 @@ public class GamePlayerCard {
     @JoinColumn(name = "card_id")
     private Card card;
 
-    @Column(name = "played_generation")
+    @Column(name = "generation_id")
     private Integer generationId;
+
+    @Column(name = "player_id")
+    private Integer playerId;
+
+    private Integer picked;
+
+    public GameCard() {
+    }
+
+    public GameCard(Game game, Card card){
+        this.game = game;
+        this.card = card;
+        this.playerId = 0;
+        this.generationId = 0;
+    }
 
     public Integer getId() {
         return id;
@@ -49,5 +64,21 @@ public class GamePlayerCard {
 
     public void setGenerationId(Integer generationId) {
         this.generationId = generationId;
+    }
+
+    public Integer getPlayerId() {
+        return playerId;
+    }
+
+    public void setPlayerId(Integer playerId) {
+        this.playerId = playerId;
+    }
+
+    public Integer getPicked() {
+        return picked;
+    }
+
+    public void setPicked(Integer picked) {
+        this.picked = picked;
     }
 }
