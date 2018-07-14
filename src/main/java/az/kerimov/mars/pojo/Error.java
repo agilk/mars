@@ -9,6 +9,11 @@ public class Error {
         this.errorMessage = errorMessage;
     }
 
+    public Error(MarsException e){
+        this.errorCode = e.getCode();
+        this.errorMessage = e.getStringMessage();
+    }
+
     public Integer getErrorCode() {
         return errorCode;
     }

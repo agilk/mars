@@ -1,15 +1,13 @@
 package az.kerimov.mars;
 
-import az.kerimov.mars.entity.Card;
-import az.kerimov.mars.entity.Game;
-import az.kerimov.mars.entity.GameCard;
 import az.kerimov.mars.pojo.*;
 import az.kerimov.mars.pojo.Error;
 import az.kerimov.mars.services.MarsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 
 @RestController
 public class MarsController {
@@ -17,170 +15,221 @@ public class MarsController {
     private MarsService marsService;
 
     @PostMapping("/startNewGame")
-    public Response startNewGame(@RequestBody Request request){
+    public Response startNewGame(@RequestBody Request request) {
         Data data = new Data();
         Response response = new Response();
-        try{
-            Game game = marsService.startNewGame(request.getDecks(), request.getPlayers());
+        try {
+            az.kerimov.mars.entity.Game game = marsService.startNewGame(request.getDecks(), request.getPlayers());
             data.setGame(game);
             data.setPlayers(marsService.getPlayersOfGame(game));
             response.setData(data);
-        }catch (Exception e){
-            Error error = new Error(-1, e.getMessage());
-            response.setError(error);
+        } catch (MarsException e) {
+            response.setError(new Error(e));
 
         }
         return response;
     }
 
     @PostMapping("/getCardById")
-    public Response getCardById(@RequestBody Request request){
+    public Response getCardById(@RequestBody Request request) {
         Data data = new Data();
         Response response = new Response();
-        try{
+        try {
             data.setCard(marsService.getCardById(request.getCardId()));
             response.setData(data);
-        }catch (Exception e){
-            Error error = new Error(-1, e.getMessage());
-            response.setError(error);
+        } catch (Exception e) {
+            response.setError(new Error((MarsException) e));
 
         }
         return response;
     }
 
     @PostMapping("/showRandomCard")
-    public Response showRandomCard(@RequestBody Request request){
+    public Response showRandomCard(@RequestBody Request request) {
         Data data = new Data();
         Response response = new Response();
-        try{
+        try {
             data.setGameCard(marsService.showRandomCard(request.getGameId(), request.getGameHash(), request.getPlayerId()));
             response.setData(data);
-        }catch (Exception e){
-            Error error = new Error(-1, e.getMessage());
-            response.setError(error);
+        } catch (MarsException e) {
+            response.setError(new Error(e));
 
         }
         return response;
     }
 
     @PostMapping("/showGenerationCards")
-    public Response showGenerationCards(@RequestBody Request request){
+    public Response showGenerationCards(@RequestBody Request request) {
         Data data = new Data();
         Response response = new Response();
-        try{
+        try {
             data.setGameCards(marsService.showGenerationCards(request.getGameId(), request.getGameHash(), request.getPlayerId()));
             response.setData(data);
-        }catch (Exception e){
-            Error error = new Error(-1, e.getMessage());
-            response.setError(error);
+        } catch (MarsException e) {
+            response.setError(new Error(e));
 
         }
         return response;
     }
 
     @PostMapping("/buyCards")
-    public Response buyCards(@RequestBody Request request){
+    public Response buyCards(@RequestBody Request request) {
         Data data = new Data();
         Response response = new Response();
-        try{
+        try {
             data.setCards(marsService.pickUpCards(request.getPlayerId(), request.getGameId(), request.getGameHash(), request.getCards()));
             response.setData(data);
-        }catch (Exception e){
-            Error error = new Error(-1, e.getMessage());
-            response.setError(error);
+        } catch (MarsException e) {
+            response.setError(new Error(e));
 
         }
         return response;
     }
 
     @PostMapping("/buyCard")
-    public Response buyCard(@RequestBody Request request){
+    public Response buyCard(@RequestBody Request request) {
         Data data = new Data();
         Response response = new Response();
-        try{
+        try {
             data.setCard(marsService.pickUpCard(request.getPlayerId(), request.getGameId(), request.getGameHash(), request.getCardId()));
             response.setData(data);
-        }catch (Exception e){
-            Error error = new Error(-1, e.getMessage());
-            response.setError(error);
+        } catch (MarsException e) {
+            response.setError(new Error(e));
+        }
+        return response;
+    }
+
+    @PostMapping("/pickUpFreeCard")
+    public Response pickUpFreeCard(@RequestBody Request request) {
+        Data data = new Data();
+        Response response = new Response();
+        try {
+            data.setCard(marsService.pickUpFreeCard(request.getPlayerId(), request.getGameId(), request.getGameHash(), request.getCardId()));
+            response.setData(data);
+        } catch (MarsException e) {
+            response.setError(new Error(e));
+        }
+        return response;
+    }
+
+    @PostMapping("/sellCard")
+    public Response sellCard(@RequestBody Request request) {
+        Data data = new Data();
+        Response response = new Response();
+        try {
+            data.setGamePlayerMat(marsService.sellCard(request.getPlayerId(), request.getGameId(), request.getGameHash(), request.getCardId()));
+            response.setData(data);
+        } catch (MarsException e) {
+            response.setError(new Error(e));
+        }
+        return response;
+    }
+
+
+    @PostMapping("/useCard")
+    public Response useCard(@RequestBody Request request) {
+        Data data = new Data();
+        Response response = new Response();
+        try {
+            data.setGamePlayerMat(marsService.useCard(request.getPlayerId(), request.getGameId(), request.getGameHash(), request.getCardId(), false, ' ', 0));
+            response.setData(data);
+        } catch (MarsException e) {
             e.printStackTrace();
 
         }
         return response;
     }
 
-    @PostMapping("/pickUpFreeCard")
-    public Integer pickUpFreeCard(@RequestBody Request request){
-        Game game = marsService.getGameByIdAndHash(request.getGameId(), request.getGameHash());
-        Card card = marsService.getCardById(request.getCardId());
-        return marsService.pickUpFreeCard(request.getPlayerId(), game, card);
-    }
-
-    @PostMapping("/sellCard")
-    public Game sellCard(@RequestBody Request request){
-        Game game = marsService.getGameByIdAndHash(request.getGameId(), request.getGameHash());
-        Card card = marsService.getCardById(request.getCardId());
-        marsService.sellCard(request.getPlayerId(), game, card);
-        return marsService.getGameByIdAndHash(request.getGameId(), request.getGameHash());
-    }
-
-
-    @PostMapping("/useCard")
-    public Game useCard(@RequestBody Request request){
-        Game game = marsService.getGameByIdAndHash(request.getGameId(), request.getGameHash());
-        Card card = marsService.getCardById(request.getCardId());
-        marsService.useCard(request.getPlayerId(), game, card, false, ' ', 0);
-        return marsService.getGameByIdAndHash(request.getGameId(), request.getGameHash());
-    }
-
     @PostMapping("/useCardWithSteel")
-    public Game useCardWithSteel(@RequestBody Request request){
-        Game game = marsService.getGameByIdAndHash(request.getGameId(), request.getGameHash());
-        Card card = marsService.getCardById(request.getCardId());
-        marsService.useCard(request.getPlayerId(), game, card, true, 's', request.getResourceCount());
-        return marsService.getGameByIdAndHash(request.getGameId(), request.getGameHash());
+    public Response useCardWithSteel(@RequestBody Request request) {
+        Data data = new Data();
+        Response response = new Response();
+        try {
+            data.setGamePlayerMat(marsService.useCard(request.getPlayerId(), request.getGameId(), request.getGameHash(), request.getCardId(), true, 's', request.getResourceCount()));
+            response.setData(data);
+        } catch (MarsException e) {
+            e.printStackTrace();
+
+        }
+        return response;
     }
 
     @PostMapping("/useCardWithTitan")
-    public Game useCardWithTitan(@RequestBody Request request){
-        Game game = marsService.getGameByIdAndHash(request.getGameId(), request.getGameHash());
-        Card card = marsService.getCardById(request.getCardId());
-        marsService.useCard(request.getPlayerId(), game, card, true, 't', request.getResourceCount());
-        return marsService.getGameByIdAndHash(request.getGameId(), request.getGameHash());
+    public Response useCardWithTitan(@RequestBody Request request) {
+        Data data = new Data();
+        Response response = new Response();
+        try {
+            data.setGamePlayerMat(marsService.useCard(request.getPlayerId(), request.getGameId(), request.getGameHash(), request.getCardId(), true, 't', request.getResourceCount()));
+            response.setData(data);
+        } catch (MarsException e) {
+            e.printStackTrace();
+
+        }
+        return response;
     }
 
     @PostMapping("/newGeneration")
-    public List<GameCard> newGeneration(@RequestBody Request request){
-        Game game = marsService.getGameByIdAndHash(request.getGameId(), request.getGameHash());
-        marsService.newGeneration(game);
-        return marsService.showGenerationCards(request.getGameId(), request.getGameHash(), request.getPlayerId());
+    public Response newGeneration(@RequestBody Request request) {
+        Data data = new Data();
+        Response response = new Response();
+        try {
+            data.setGame(marsService.newGeneration(request.getGameId(), request.getGameHash()));
+        } catch (MarsException e) {
+            e.printStackTrace();
+
+        }
+        return response;
     }
 
     @PostMapping("/raiseTemperatureByHeat")
-    public Game raiseTemperatureByHeat(@RequestBody Request request){
-        Game game = marsService.getGameByIdAndHash(request.getGameId(), request.getGameHash());
-        marsService.raiseTemperatureByHeat(request.getPlayerId(), game);
-        return marsService.getGameByIdAndHash(request.getGameId(), request.getGameHash());
+    public Response raiseTemperatureByHeat(@RequestBody Request request) {
+        Data data = new Data();
+        Response response = new Response();
+        try {
+            data.setGame(marsService.raiseTemperatureByHeat(request.getPlayerId(), request.getGameId(), request.getGameHash()));
+        } catch (MarsException e) {
+            e.printStackTrace();
+
+        }
+        return response;
     }
 
     @PostMapping("/addGreenery")
-    public Game addGreenery(@RequestBody Request request){
-        Game game = marsService.getGameByIdAndHash(request.getGameId(), request.getGameHash());
-        marsService.addGreenery(request.getPlayerId(), game);
-        return marsService.getGameByIdAndHash(request.getGameId(), request.getGameHash());
+    public Response addGreenery(@RequestBody Request request) {
+        Data data = new Data();
+        Response response = new Response();
+        try {
+            data.setGame(marsService.addGreenery(request.getPlayerId(), request.getGameId(), request.getGameHash()));
+        } catch (MarsException e) {
+            e.printStackTrace();
+
+        }
+        return response;
     }
 
     @PostMapping("/addOcean")
-    public Game addOcean(@RequestBody Request request){
-        Game game = marsService.getGameByIdAndHash(request.getGameId(), request.getGameHash());
-        marsService.addOcean(request.getPlayerId(), game);
-        return marsService.getGameByIdAndHash(request.getGameId(), request.getGameHash());
+    public Response addOcean(@RequestBody Request request) {
+        Data data = new Data();
+        Response response = new Response();
+        try {
+            data.setGame(marsService.addOcean(request.getPlayerId(), request.getGameId(), request.getGameHash()));
+        } catch (MarsException e) {
+            e.printStackTrace();
+
+        }
+        return response;
     }
 
     @PostMapping("/addGreeneryForMoney")
-    public Game addGreeneryForMoney(@RequestBody Request request){
-        Game game = marsService.getGameByIdAndHash(request.getGameId(), request.getGameHash());
-        marsService.addGreeneryForMoney(request.getPlayerId(), game);
-        return marsService.getGameByIdAndHash(request.getGameId(), request.getGameHash());
+    public Response addGreeneryForMoney(@RequestBody Request request) {
+        Data data = new Data();
+        Response response = new Response();
+        try {
+            data.setGame(marsService.addGreeneryForMoney(request.getPlayerId(), request.getGameId(), request.getGameHash()));
+        } catch (MarsException e) {
+            e.printStackTrace();
+
+        }
+        return response;
     }
 }
