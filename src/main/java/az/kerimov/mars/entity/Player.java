@@ -16,7 +16,7 @@ public class Player {
 
     @ManyToOne
     @JoinColumn(name ="corporation_id")
-    private Corporation corporation;
+    private GameCorporation corporation;
 
     public Player(){
 
@@ -51,11 +51,11 @@ public class Player {
         this.game = game;
     }
 
-    public Corporation getCorporation() {
+    public GameCorporation getCorporation() {
         return corporation;
     }
 
-    public void setCorporation(Corporation corporation) {
+    public void setCorporation(GameCorporation corporation) {
         this.corporation = corporation;
     }
 }

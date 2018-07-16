@@ -21,6 +21,8 @@ public class Data {
     private GamePlayerCard gamePlayerCard;
     private List<GamePlayerCard> gamePlayerCards;
     private GamePlayerMat gamePlayerMat;
+    private List<GameCorporation> gameCorporations;
+    private GameCorporation gameCorporation;
 
     public Game getGame() {
         return game;
@@ -148,5 +150,21 @@ public class Data {
 
     public void setGamePlayerMat(GamePlayerMat gamePlayerMat) {
         this.gamePlayerMat = gamePlayerMat;
+    }
+
+    public List<GameCorporation> getGameCorporations() {
+        return gameCorporations;
+    }
+
+    public void setGameCorporations(List<GameCorporation> gameCorporations) {
+        this.gameCorporations = gameCorporations;
+    }
+
+    public GameCorporation getGameCorporation() {
+        return gameCorporation;
+    }
+
+    public void setGameCorporation(GameCorporation gameCorporation) {
+        this.gameCorporation = gameCorporation;
     }
 }

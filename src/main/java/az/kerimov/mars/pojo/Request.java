@@ -12,6 +12,7 @@ public class Request {
     private List<Integer> cards;
     private List<String> players;
     private Integer resourceCount;
+    private Integer corporationId;
 
     public Integer getGameId() {
         return gameId;
@@ -84,5 +85,13 @@ public class Request {
 
     public void setResourceCount(Integer resourceCount) {
         this.resourceCount = resourceCount;
+    }
+
+    public Integer getCorporationId() {
+        return corporationId;
+    }
+
+    public void setCorporationId(Integer corporationId) {
+        this.corporationId = corporationId;
     }
 }

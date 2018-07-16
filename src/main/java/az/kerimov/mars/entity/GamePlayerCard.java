@@ -14,7 +14,7 @@ public class GamePlayerCard {
 
     @ManyToOne
     @JoinColumn(name = "card_id")
-    private Card card;
+    private GameCard card;
 
     @ManyToOne
     @JoinColumn(name = "player_id")
@@ -39,11 +39,11 @@ public class GamePlayerCard {
         this.game = game;
     }
 
-    public Card getCard() {
+    public GameCard getCard() {
         return card;
     }
 
-    public void setCard(Card card) {
+    public void setCard(GameCard card) {
         this.card = card;
     }
 

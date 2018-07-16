@@ -5,4 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ExceptionRepository extends JpaRepository<MException, Integer> {
     MException findById(Integer id);
+    MException findByCode(String code);
 }

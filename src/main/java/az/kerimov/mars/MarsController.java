@@ -72,6 +72,48 @@ public class MarsController {
         return response;
     }
 
+    @PostMapping("/showPlayerUnusedCards")
+    public Response showPlayerUnusedCards(@RequestBody Request request) {
+        Data data = new Data();
+        Response response = new Response();
+        try {
+            data.setGamePlayerCards(marsService.showPlayerUnusedCards(request.getGameId(), request.getGameHash(), request.getPlayerId()));
+            response.setData(data);
+        } catch (MarsException e) {
+            response.setError(new Error(e));
+
+        }
+        return response;
+    }
+
+    @PostMapping("/showCorporations")
+    public Response showCorporations(@RequestBody Request request) {
+        Data data = new Data();
+        Response response = new Response();
+        try {
+            data.setGameCorporations(marsService.showCorporationCards(request.getGameId(), request.getGameHash(), request.getPlayerId()));
+            response.setData(data);
+        } catch (MarsException e) {
+            response.setError(new Error(e));
+
+        }
+        return response;
+    }
+
+    @PostMapping("/pickUpCorporation")
+    public Response pickUpCorporation(@RequestBody Request request) {
+        Data data = new Data();
+        Response response = new Response();
+        try {
+            data.setGamePlayerMat(marsService.pickUpCorporation(request.getPlayerId(), request.getGameId(), request.getGameHash(), request.getCorporationId()));
+            response.setData(data);
+        } catch (MarsException e) {
+            response.setError(new Error(e));
+
+        }
+        return response;
+    }
+
     @PostMapping("/buyCards")
     public Response buyCards(@RequestBody Request request) {
         Data data = new Data();
@@ -134,7 +176,7 @@ public class MarsController {
             data.setGamePlayerMat(marsService.useCard(request.getPlayerId(), request.getGameId(), request.getGameHash(), request.getCardId(), false, ' ', 0));
             response.setData(data);
         } catch (MarsException e) {
-            e.printStackTrace();
+            response.setError(new Error(e));
 
         }
         return response;
@@ -148,7 +190,7 @@ public class MarsController {
             data.setGamePlayerMat(marsService.useCard(request.getPlayerId(), request.getGameId(), request.getGameHash(), request.getCardId(), true, 's', request.getResourceCount()));
             response.setData(data);
         } catch (MarsException e) {
-            e.printStackTrace();
+            response.setError(new Error(e));
 
         }
         return response;
@@ -162,7 +204,7 @@ public class MarsController {
             data.setGamePlayerMat(marsService.useCard(request.getPlayerId(), request.getGameId(), request.getGameHash(), request.getCardId(), true, 't', request.getResourceCount()));
             response.setData(data);
         } catch (MarsException e) {
-            e.printStackTrace();
+            response.setError(new Error(e));
 
         }
         return response;
@@ -173,9 +215,9 @@ public class MarsController {
         Data data = new Data();
         Response response = new Response();
         try {
-            data.setGame(marsService.newGeneration(request.getGameId(), request.getGameHash()));
+            data.setGameCards(marsService.newGeneration(request.getGameId(), request.getGameHash()));
         } catch (MarsException e) {
-            e.printStackTrace();
+            response.setError(new Error(e));
 
         }
         return response;
@@ -188,7 +230,7 @@ public class MarsController {
         try {
             data.setGame(marsService.raiseTemperatureByHeat(request.getPlayerId(), request.getGameId(), request.getGameHash()));
         } catch (MarsException e) {
-            e.printStackTrace();
+            response.setError(new Error(e));
 
         }
         return response;
@@ -201,7 +243,7 @@ public class MarsController {
         try {
             data.setGame(marsService.addGreenery(request.getPlayerId(), request.getGameId(), request.getGameHash()));
         } catch (MarsException e) {
-            e.printStackTrace();
+            response.setError(new Error(e));
 
         }
         return response;
@@ -214,7 +256,7 @@ public class MarsController {
         try {
             data.setGame(marsService.addOcean(request.getPlayerId(), request.getGameId(), request.getGameHash()));
         } catch (MarsException e) {
-            e.printStackTrace();
+            response.setError(new Error(e));
 
         }
         return response;
@@ -227,7 +269,7 @@ public class MarsController {
         try {
             data.setGame(marsService.addGreeneryForMoney(request.getPlayerId(), request.getGameId(), request.getGameHash()));
         } catch (MarsException e) {
-            e.printStackTrace();
+            response.setError(new Error(e));
 
         }
         return response;
