@@ -1,0 +1,757 @@
+{
+  "front-version": "2.18.0",
+  "version": 3,
+  "nodes": [
+    {
+      "type": "Project",
+      "id": "d587c306-74b1-4d25-8882-02d1f2585c98",
+      "lastModified": "2018-07-16T13:27:03.430+04:00",
+      "name": "Mars"
+    },
+    {
+      "type": "Request",
+      "method": {
+        "requestBody": true,
+        "link": "https://tools.ietf.org/html/rfc7231#section-4.3",
+        "name": "POST"
+      },
+      "body": {
+        "bodyType": "Text",
+        "autoSetLength": true,
+        "textBody": "{\n\t\"gameId\":10,\n\t\"playerId\": 1\n}\n"
+      },
+      "headersType": "Form",
+      "uri": {
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        },
+        "path": "localhost:19001/addGreenery"
+      },
+      "id": "52bddb88-6354-4d40-a8e1-0863fb8cb426",
+      "lastModified": "2018-07-16T09:54:12.185+04:00",
+      "name": "addGreenery",
+      "headers": [
+        {
+          "enabled": true,
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "assertions": [],
+      "metaInfo": {
+        "ownerId": "google-oauth2|115633720879479087419"
+      },
+      "parentId": "d587c306-74b1-4d25-8882-02d1f2585c98"
+    },
+    {
+      "type": "Request",
+      "method": {
+        "requestBody": true,
+        "link": "https://tools.ietf.org/html/rfc7231#section-4.3",
+        "name": "POST"
+      },
+      "body": {
+        "bodyType": "Text",
+        "autoSetLength": true,
+        "textBody": "{\n\t\"gameId\":10,\n\t\"playerId\": 1\n}\n"
+      },
+      "headersType": "Form",
+      "uri": {
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        },
+        "path": "localhost:19001/addGreeneryForMoney"
+      },
+      "id": "4eee8607-e1b1-4c32-9fe2-76cc94348c58",
+      "lastModified": "2018-07-16T09:54:12.185+04:00",
+      "name": "addGreeneryForMoney",
+      "headers": [
+        {
+          "enabled": true,
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "assertions": [],
+      "metaInfo": {
+        "ownerId": "google-oauth2|115633720879479087419"
+      },
+      "parentId": "d587c306-74b1-4d25-8882-02d1f2585c98"
+    },
+    {
+      "type": "Request",
+      "method": {
+        "requestBody": true,
+        "link": "https://tools.ietf.org/html/rfc7231#section-4.3",
+        "name": "POST"
+      },
+      "body": {
+        "bodyType": "Text",
+        "autoSetLength": true,
+        "textBody": "{\n  \"gameId\":38,\n  \"gameHash\":\"2080739\",\n  \"playerId\":31\n}\n"
+      },
+      "headersType": "Form",
+      "uri": {
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        },
+        "path": "localhost:19001/addOcean"
+      },
+      "id": "55cd1def-a32a-4ce2-a2a3-0a3d55a5339f",
+      "lastModified": "2018-07-16T13:24:46.740+04:00",
+      "name": "addOcean",
+      "headers": [
+        {
+          "enabled": true,
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "assertions": [],
+      "metaInfo": {
+        "ownerId": "google-oauth2|115633720879479087419"
+      },
+      "parentId": "d587c306-74b1-4d25-8882-02d1f2585c98"
+    },
+    {
+      "type": "Request",
+      "method": {
+        "requestBody": true,
+        "link": "https://tools.ietf.org/html/rfc7231#section-4.3",
+        "name": "POST"
+      },
+      "body": {
+        "bodyType": "Text",
+        "autoSetLength": true,
+        "textBody": "{\n\"decks\":[2,3]\n}"
+      },
+      "headersType": "Form",
+      "uri": {
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        },
+        "path": "localhost:19001/getAllCardsByDecks"
+      },
+      "id": "c8167099-034d-48e4-a16c-8e1539aa3f58",
+      "lastModified": "2018-07-16T09:54:12.181+04:00",
+      "name": "getAllCardsByDecks",
+      "headers": [
+        {
+          "enabled": true,
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "assertions": [],
+      "metaInfo": {
+        "ownerId": "google-oauth2|115633720879479087419"
+      },
+      "parentId": "d587c306-74b1-4d25-8882-02d1f2585c98"
+    },
+    {
+      "type": "Request",
+      "method": {
+        "requestBody": true,
+        "link": "https://tools.ietf.org/html/rfc7231#section-4.3",
+        "name": "POST"
+      },
+      "body": {
+        "bodyType": "Text",
+        "autoSetLength": true,
+        "textBody": "{\n\t\"gameId\":16,\n\t\"playerId\": 1,\n\t\"cardId\": 48\n}\n"
+      },
+      "headersType": "Form",
+      "uri": {
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        },
+        "path": "localhost:19001/useCard"
+      },
+      "id": "b516e413-4c37-4203-a9dd-cdb78ff813ce",
+      "lastModified": "2018-07-16T09:54:12.184+04:00",
+      "name": "getCardById",
+      "headers": [
+        {
+          "enabled": true,
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "assertions": [],
+      "metaInfo": {
+        "ownerId": "google-oauth2|115633720879479087419"
+      },
+      "parentId": "d587c306-74b1-4d25-8882-02d1f2585c98"
+    },
+    {
+      "type": "Request",
+      "method": {
+        "requestBody": true,
+        "link": "https://tools.ietf.org/html/rfc7231#section-4.3",
+        "name": "POST"
+      },
+      "body": {
+        "bodyType": "Text",
+        "autoSetLength": true,
+        "textBody": "{\n  \"gameId\":38,\n  \"gameHash\":\"2080739\"\n}\n"
+      },
+      "headersType": "Form",
+      "uri": {
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        },
+        "path": "localhost:19001/newGeneration"
+      },
+      "id": "caf7a91a-5b43-42b3-9aa6-c6912df07510",
+      "lastModified": "2018-07-16T13:24:58.774+04:00",
+      "name": "newGeneration",
+      "headers": [
+        {
+          "enabled": true,
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "assertions": [],
+      "metaInfo": {
+        "ownerId": "google-oauth2|115633720879479087419"
+      },
+      "parentId": "d587c306-74b1-4d25-8882-02d1f2585c98"
+    },
+    {
+      "type": "Request",
+      "method": {
+        "requestBody": true,
+        "link": "https://tools.ietf.org/html/rfc7231#section-4.3",
+        "name": "POST"
+      },
+      "body": {
+        "bodyType": "Text",
+        "autoSetLength": true,
+        "textBody": "{\n\t\"gameId\":28,\n\t\"playerId\": 1,\n\t\"cardId\": 10\n}\n"
+      },
+      "headersType": "Form",
+      "uri": {
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        },
+        "path": "localhost:19001/buyCard"
+      },
+      "id": "24fb35bc-87e2-4733-add4-50a2519deda6",
+      "lastModified": "2018-07-16T09:54:12.183+04:00",
+      "name": "pickUpCard",
+      "headers": [
+        {
+          "enabled": true,
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "assertions": [],
+      "metaInfo": {
+        "ownerId": "google-oauth2|115633720879479087419"
+      },
+      "parentId": "d587c306-74b1-4d25-8882-02d1f2585c98"
+    },
+    {
+      "type": "Request",
+      "method": {
+        "requestBody": true,
+        "link": "https://tools.ietf.org/html/rfc7231#section-4.3",
+        "name": "POST"
+      },
+      "body": {
+        "bodyType": "Text",
+        "autoSetLength": true,
+        "textBody": "{\n\t\"gameId\":10,\n\t\"playerId\": 1,\n\t\"cardId\": 75\n}\n"
+      },
+      "headersType": "Form",
+      "uri": {
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        },
+        "path": "localhost:19001/pickUpFreeCard"
+      },
+      "id": "560830da-5304-4ddd-8901-f971b5074884",
+      "lastModified": "2018-07-16T09:54:12.185+04:00",
+      "name": "pickUpCardForFree",
+      "headers": [
+        {
+          "enabled": true,
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "assertions": [],
+      "metaInfo": {
+        "ownerId": "google-oauth2|115633720879479087419"
+      },
+      "parentId": "d587c306-74b1-4d25-8882-02d1f2585c98"
+    },
+    {
+      "type": "Request",
+      "method": {
+        "requestBody": true,
+        "link": "https://tools.ietf.org/html/rfc7231#section-4.3",
+        "name": "POST"
+      },
+      "body": {
+        "bodyType": "Text",
+        "autoSetLength": true,
+        "textBody": "{\n  \"gameId\":38,\n  \"gameHash\":\"2080739\",\n  \"playerId\":31,\n\t\"cards\": [4603]\n}\n"
+      },
+      "headersType": "Form",
+      "uri": {
+        "query": {
+          "delimiter": "&",
+          "items": []
+        },
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        },
+        "host": "localhost:19001",
+        "path": "/buyCards"
+      },
+      "id": "bab7e656-70c9-4b39-b179-d9abf8c12f35",
+      "lastModified": "2018-07-16T13:27:03.432+04:00",
+      "name": "pickUpCards",
+      "headers": [
+        {
+          "enabled": true,
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "assertions": [],
+      "metaInfo": {
+        "ownerId": "google-oauth2|115633720879479087419"
+      },
+      "parentId": "d587c306-74b1-4d25-8882-02d1f2585c98"
+    },
+    {
+      "type": "Request",
+      "method": {
+        "requestBody": true,
+        "link": "https://tools.ietf.org/html/rfc7231#section-4.3",
+        "name": "POST"
+      },
+      "body": {
+        "bodyType": "Text",
+        "autoSetLength": true,
+        "textBody": "{\n  \"gameId\":38,\n  \"gameHash\":\"2080739\",\n  \"playerId\":31,\n  \"corporationId\":25\n}"
+      },
+      "headersType": "Form",
+      "uri": {
+        "query": {
+          "delimiter": "&",
+          "items": []
+        },
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        },
+        "host": "localhost:19001",
+        "path": "/pickUpCorporation"
+      },
+      "id": "94ed2fbf-b3ee-45b0-ba3d-6a37b7f711c9",
+      "lastModified": "2018-07-16T12:57:54.001+04:00",
+      "name": "pickUpCorporation",
+      "headers": [
+        {
+          "enabled": true,
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "assertions": [],
+      "metaInfo": {
+        "ownerId": "google-oauth2|115633720879479087419"
+      },
+      "parentId": "d587c306-74b1-4d25-8882-02d1f2585c98"
+    },
+    {
+      "type": "Request",
+      "method": {
+        "requestBody": true,
+        "link": "https://tools.ietf.org/html/rfc7231#section-4.3",
+        "name": "POST"
+      },
+      "body": {
+        "bodyType": "Text",
+        "autoSetLength": true,
+        "textBody": "{\n\t\"gameId\":10,\n\t\"playerId\": 1\n}\n"
+      },
+      "headersType": "Form",
+      "uri": {
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        },
+        "path": "localhost:19001/raiseTemperatureByHeat"
+      },
+      "id": "ed6302b0-858d-46da-b1ce-7ec6073f744a",
+      "lastModified": "2018-07-16T09:54:12.185+04:00",
+      "name": "raiseTemperatureByHeat",
+      "headers": [
+        {
+          "enabled": true,
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "assertions": [],
+      "metaInfo": {
+        "ownerId": "google-oauth2|115633720879479087419"
+      },
+      "parentId": "d587c306-74b1-4d25-8882-02d1f2585c98"
+    },
+    {
+      "type": "Request",
+      "method": {
+        "requestBody": true,
+        "link": "https://tools.ietf.org/html/rfc7231#section-4.3",
+        "name": "POST"
+      },
+      "body": {
+        "bodyType": "Text",
+        "autoSetLength": true,
+        "textBody": "{\n\t\"gameId\":16,\n\t\"playerId\": 1,\n\t\"cardId\": 146\n}\n"
+      },
+      "headersType": "Form",
+      "uri": {
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        },
+        "path": "localhost:19001/sellCard"
+      },
+      "id": "4a3df510-872d-48fa-9ce1-66af9cab5082",
+      "lastModified": "2018-07-16T09:54:12.184+04:00",
+      "name": "sellCard",
+      "headers": [
+        {
+          "enabled": true,
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "assertions": [],
+      "metaInfo": {
+        "ownerId": "google-oauth2|115633720879479087419"
+      },
+      "parentId": "d587c306-74b1-4d25-8882-02d1f2585c98"
+    },
+    {
+      "type": "Request",
+      "method": {
+        "requestBody": true,
+        "link": "https://tools.ietf.org/html/rfc7231#section-4.3",
+        "name": "POST"
+      },
+      "body": {
+        "bodyType": "Text",
+        "autoSetLength": true,
+        "textBody": "{\n  \"gameId\":38,\n  \"gameHash\":\"2080739\",\n  \"playerId\":31\n}"
+      },
+      "headersType": "Form",
+      "uri": {
+        "query": {
+          "delimiter": "&",
+          "items": []
+        },
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        },
+        "host": "localhost:19001",
+        "path": "/showCorporations"
+      },
+      "id": "9c2555dc-4cd4-476c-80c6-31d581cb69d2",
+      "lastModified": "2018-07-16T12:57:30.726+04:00",
+      "name": "showCorporations",
+      "headers": [
+        {
+          "enabled": true,
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "assertions": [],
+      "metaInfo": {
+        "ownerId": "google-oauth2|115633720879479087419"
+      },
+      "parentId": "d587c306-74b1-4d25-8882-02d1f2585c98"
+    },
+    {
+      "type": "Request",
+      "method": {
+        "requestBody": true,
+        "link": "https://tools.ietf.org/html/rfc7231#section-4.3",
+        "name": "POST"
+      },
+      "body": {
+        "bodyType": "Text",
+        "autoSetLength": true,
+        "textBody": "{\n  \"gameId\":38,\n  \"gameHash\":\"2080739\",\n  \"playerId\":31\n}"
+      },
+      "headersType": "Form",
+      "uri": {
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        },
+        "path": "localhost:19001/showGenerationCards"
+      },
+      "id": "aae2e558-4d63-4890-b38e-0018f94ffd4d",
+      "lastModified": "2018-07-16T12:58:08.976+04:00",
+      "name": "showGenerationCards",
+      "headers": [
+        {
+          "enabled": true,
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "assertions": [],
+      "metaInfo": {
+        "ownerId": "google-oauth2|115633720879479087419"
+      },
+      "parentId": "d587c306-74b1-4d25-8882-02d1f2585c98"
+    },
+    {
+      "type": "Request",
+      "method": {
+        "requestBody": true,
+        "link": "https://tools.ietf.org/html/rfc7231#section-4.3",
+        "name": "POST"
+      },
+      "body": {
+        "bodyType": "Text",
+        "autoSetLength": true,
+        "textBody": "{\n  \"gameId\":38,\n  \"gameHash\":\"2080739\",\n  \"playerId\":31\n}\n"
+      },
+      "headersType": "Form",
+      "uri": {
+        "query": {
+          "delimiter": "&",
+          "items": []
+        },
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        },
+        "host": "localhost:19001",
+        "path": "/showPlayerUnusedCards"
+      },
+      "id": "97ecce61-3d28-4cfa-b627-18ef7f34e087",
+      "lastModified": "2018-07-16T13:12:15.309+04:00",
+      "name": "showPlayerUnusedCards",
+      "headers": [
+        {
+          "enabled": true,
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "assertions": [],
+      "metaInfo": {
+        "ownerId": "google-oauth2|115633720879479087419"
+      },
+      "parentId": "d587c306-74b1-4d25-8882-02d1f2585c98"
+    },
+    {
+      "type": "Request",
+      "method": {
+        "requestBody": true,
+        "link": "https://tools.ietf.org/html/rfc7231#section-4.3",
+        "name": "POST"
+      },
+      "body": {
+        "bodyType": "Text",
+        "autoSetLength": true,
+        "textBody": "{\n\t\"gameId\":10,\n\t\"playerId\":1\n}"
+      },
+      "headersType": "Form",
+      "uri": {
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        },
+        "path": "localhost:19001/showRandomCard"
+      },
+      "id": "ea2eafd7-589c-41f5-a582-7146f16ea447",
+      "lastModified": "2018-07-16T09:54:12.185+04:00",
+      "name": "showRandomCard",
+      "headers": [
+        {
+          "enabled": true,
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "assertions": [],
+      "metaInfo": {
+        "ownerId": "google-oauth2|115633720879479087419"
+      },
+      "parentId": "d587c306-74b1-4d25-8882-02d1f2585c98"
+    },
+    {
+      "type": "Request",
+      "method": {
+        "requestBody": true,
+        "link": "https://tools.ietf.org/html/rfc7231#section-4.3",
+        "name": "POST"
+      },
+      "body": {
+        "bodyType": "Text",
+        "autoSetLength": true,
+        "textBody": "{\n\"decks\":[1],\n  \"players\":[\"Agil\"]\n}"
+      },
+      "headersType": "Form",
+      "uri": {
+        "query": {
+          "delimiter": "&",
+          "items": []
+        },
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        },
+        "host": "localhost:19001",
+        "path": "/startNewGame"
+      },
+      "id": "34f36f67-3183-461d-a0ab-51312c4d22e8",
+      "lastModified": "2018-07-16T12:56:10.277+04:00",
+      "name": "startNewGame",
+      "headers": [
+        {
+          "enabled": true,
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "assertions": [],
+      "metaInfo": {
+        "ownerId": "google-oauth2|115633720879479087419"
+      },
+      "parentId": "d587c306-74b1-4d25-8882-02d1f2585c98"
+    },
+    {
+      "type": "Request",
+      "method": {
+        "requestBody": true,
+        "link": "https://tools.ietf.org/html/rfc7231#section-4.3",
+        "name": "POST"
+      },
+      "body": {
+        "bodyType": "Text",
+        "autoSetLength": true,
+        "textBody": "{\n  \"gameId\":38,\n  \"gameHash\":\"2080739\",\n  \"playerId\":31,\n\t\"cardId\": 4712\n}\n"
+      },
+      "headersType": "Form",
+      "uri": {
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        },
+        "path": "localhost:19001/useCard"
+      },
+      "id": "581227eb-16ae-44dd-9045-cd8350030055",
+      "lastModified": "2018-07-16T13:22:11.580+04:00",
+      "name": "useCard",
+      "headers": [
+        {
+          "enabled": true,
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "assertions": [],
+      "metaInfo": {
+        "ownerId": "google-oauth2|115633720879479087419"
+      },
+      "parentId": "d587c306-74b1-4d25-8882-02d1f2585c98"
+    },
+    {
+      "type": "Request",
+      "method": {
+        "requestBody": true,
+        "link": "https://tools.ietf.org/html/rfc7231#section-4.3",
+        "name": "POST"
+      },
+      "body": {
+        "bodyType": "Text",
+        "autoSetLength": true,
+        "textBody": "{\n\t\"gameId\":16,\n\t\"playerId\": 1,\n\t\"cardId\": 117\n}\n"
+      },
+      "headersType": "Form",
+      "uri": {
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        },
+        "path": "localhost:19001/useCardWithSteel"
+      },
+      "id": "dec164af-c069-4fa8-b809-3acb1aa2b241",
+      "lastModified": "2018-07-16T09:54:12.184+04:00",
+      "name": "useCardWithSteel",
+      "headers": [
+        {
+          "enabled": true,
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "assertions": [],
+      "metaInfo": {
+        "ownerId": "google-oauth2|115633720879479087419"
+      },
+      "parentId": "d587c306-74b1-4d25-8882-02d1f2585c98"
+    },
+    {
+      "type": "Request",
+      "method": {
+        "requestBody": true,
+        "link": "https://tools.ietf.org/html/rfc7231#section-4.3",
+        "name": "POST"
+      },
+      "body": {
+        "bodyType": "Text",
+        "autoSetLength": true,
+        "textBody": "{\n\t\"gameId\":16,\n\t\"playerId\": 1,\n\t\"cardId\": 117\n}\n"
+      },
+      "headersType": "Form",
+      "uri": {
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        },
+        "path": "localhost:19001/useCardWithTitan"
+      },
+      "id": "7ee81233-82f4-44d3-b7fe-700cfe86bb64",
+      "lastModified": "2018-07-16T09:54:12.184+04:00",
+      "name": "useCardWithTitan",
+      "headers": [
+        {
+          "enabled": true,
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "assertions": [],
+      "metaInfo": {
+        "ownerId": "google-oauth2|115633720879479087419"
+      },
+      "parentId": "d587c306-74b1-4d25-8882-02d1f2585c98"
+    }
+  ]
+}
