@@ -136,7 +136,7 @@ public class MarsService {
         return cards;
     }
 
-    private List<Corporation> getAllCorporationsByDecks(List<Integer> decks) {
+    public List<Corporation> getAllCorporationsByDecks(List<Integer> decks) {
         List<Corporation> corporations = new ArrayList<>();
         for (Integer i : decks) {
             CardDeck deck = cardDeckRepository.findById(i);

@@ -45,6 +45,9 @@ public class Corporation {
     private String textAction;
     @Column(name ="text_title")
     private String textTitle;
+    @Column(name ="html_text")
+    private String textHtml;
+
 
     public Integer getId() {
         return id;
@@ -188,5 +191,13 @@ public class Corporation {
 
     public void setTextTitle(String textTitle) {
         this.textTitle = textTitle;
+    }
+
+    public String getTextHtml() {
+        return textHtml;
+    }
+
+    public void setTextHtml(String textHtml) {
+        this.textHtml = textHtml;
     }
 }

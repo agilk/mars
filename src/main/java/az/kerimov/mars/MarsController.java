@@ -4,9 +4,13 @@ import az.kerimov.mars.pojo.*;
 import az.kerimov.mars.pojo.Error;
 import az.kerimov.mars.services.MarsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @RestController
@@ -14,6 +18,19 @@ public class MarsController {
     @Autowired
     private MarsService marsService;
 
+    @CrossOrigin(origins = "*")
+    @PostMapping("/test")
+    public Response test(@RequestBody Request request){
+        Data data = new Data();
+        Response response = new Response();
+        List<Integer> xx = new ArrayList<>();
+        xx.add(1);
+        data.setCorporations(marsService.getAllCorporationsByDecks(xx));
+        response.setData(data);
+        return response;
+    }
+
+    @CrossOrigin(origins = "*")
     @PostMapping("/startNewGame")
     public Response startNewGame(@RequestBody Request request) {
         Data data = new Data();
@@ -30,6 +47,7 @@ public class MarsController {
         return response;
     }
 
+    @CrossOrigin(origins = "*")
     @PostMapping("/getCardById")
     public Response getCardById(@RequestBody Request request) {
         Data data = new Data();
@@ -44,6 +62,7 @@ public class MarsController {
         return response;
     }
 
+    @CrossOrigin(origins = "*")
     @PostMapping("/showRandomCard")
     public Response showRandomCard(@RequestBody Request request) {
         Data data = new Data();
@@ -58,6 +77,7 @@ public class MarsController {
         return response;
     }
 
+    @CrossOrigin(origins = "*")
     @PostMapping("/showGenerationCards")
     public Response showGenerationCards(@RequestBody Request request) {
         Data data = new Data();
@@ -72,6 +92,7 @@ public class MarsController {
         return response;
     }
 
+    @CrossOrigin(origins = "*")
     @PostMapping("/showPlayerUnusedCards")
     public Response showPlayerUnusedCards(@RequestBody Request request) {
         Data data = new Data();
@@ -86,6 +107,7 @@ public class MarsController {
         return response;
     }
 
+    @CrossOrigin(origins = "*")
     @PostMapping("/showCorporations")
     public Response showCorporations(@RequestBody Request request) {
         Data data = new Data();
@@ -100,6 +122,7 @@ public class MarsController {
         return response;
     }
 
+    @CrossOrigin(origins = "*")
     @PostMapping("/pickUpCorporation")
     public Response pickUpCorporation(@RequestBody Request request) {
         Data data = new Data();
@@ -114,6 +137,7 @@ public class MarsController {
         return response;
     }
 
+    @CrossOrigin(origins = "*")
     @PostMapping("/buyCards")
     public Response buyCards(@RequestBody Request request) {
         Data data = new Data();
@@ -128,6 +152,7 @@ public class MarsController {
         return response;
     }
 
+    @CrossOrigin(origins = "*")
     @PostMapping("/buyCard")
     public Response buyCard(@RequestBody Request request) {
         Data data = new Data();
@@ -141,6 +166,7 @@ public class MarsController {
         return response;
     }
 
+    @CrossOrigin(origins = "*")
     @PostMapping("/pickUpFreeCard")
     public Response pickUpFreeCard(@RequestBody Request request) {
         Data data = new Data();
@@ -154,6 +180,7 @@ public class MarsController {
         return response;
     }
 
+    @CrossOrigin(origins = "*")
     @PostMapping("/sellCard")
     public Response sellCard(@RequestBody Request request) {
         Data data = new Data();
@@ -168,6 +195,7 @@ public class MarsController {
     }
 
 
+    @CrossOrigin(origins = "*")
     @PostMapping("/useCard")
     public Response useCard(@RequestBody Request request) {
         Data data = new Data();
@@ -182,6 +210,7 @@ public class MarsController {
         return response;
     }
 
+    @CrossOrigin(origins = "*")
     @PostMapping("/useCardWithSteel")
     public Response useCardWithSteel(@RequestBody Request request) {
         Data data = new Data();
@@ -196,6 +225,7 @@ public class MarsController {
         return response;
     }
 
+    @CrossOrigin(origins = "*")
     @PostMapping("/useCardWithTitan")
     public Response useCardWithTitan(@RequestBody Request request) {
         Data data = new Data();
@@ -210,6 +240,7 @@ public class MarsController {
         return response;
     }
 
+    @CrossOrigin(origins = "*")
     @PostMapping("/newGeneration")
     public Response newGeneration(@RequestBody Request request) {
         Data data = new Data();
@@ -223,6 +254,7 @@ public class MarsController {
         return response;
     }
 
+    @CrossOrigin(origins = "*")
     @PostMapping("/raiseTemperatureByHeat")
     public Response raiseTemperatureByHeat(@RequestBody Request request) {
         Data data = new Data();
@@ -236,6 +268,7 @@ public class MarsController {
         return response;
     }
 
+    @CrossOrigin(origins = "*")
     @PostMapping("/addGreenery")
     public Response addGreenery(@RequestBody Request request) {
         Data data = new Data();
@@ -249,6 +282,7 @@ public class MarsController {
         return response;
     }
 
+    @CrossOrigin(origins = "*")
     @PostMapping("/addOcean")
     public Response addOcean(@RequestBody Request request) {
         Data data = new Data();
@@ -262,6 +296,7 @@ public class MarsController {
         return response;
     }
 
+    @CrossOrigin(origins = "*")
     @PostMapping("/addGreeneryForMoney")
     public Response addGreeneryForMoney(@RequestBody Request request) {
         Data data = new Data();

@@ -21,6 +21,8 @@ public class Card {
 
     @Column(name = "card_title")
     private String cardTitle;
+    @Column(name = "html_text")
+    private String textHtml;
 
     @Column(name = "req_min_temp")
     private Integer reqMinTemp;
@@ -801,5 +803,17 @@ public class Card {
 
     public void setOneTimeEffectText(String oneTimeEffectText) {
         this.oneTimeEffectText = oneTimeEffectText;
+    }
+
+    public String getTextHtml() {
+        return textHtml;
+    }
+
+    public void setTextHtml(String textHtml) {
+        this.textHtml = textHtml;
+    }
+
+    public void setTerrEffPoints(Integer terrEffPoints) {
+        this.terrEffPoints = terrEffPoints;
     }
 }
