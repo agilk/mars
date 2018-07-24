@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>jQuery.post demo</title>
+    <script src="jquery-1.10.2.js"></script>
+    <script src="mars.js"></script>
+    <link href="main.css" rel="stylesheet" type="text/css"/>
+    <link href="https://ssimeonoff.github.io/mystyles.css" rel="stylesheet" />
+
+    <script type="text/javascript">
+
+    </script>
+</head>
+<body>
+<button onclick="startNewGame()">Start New Game</button>
+
+<div class="game">
+    <input id="gameId">
+    <input id="gameHash">
+</div>
+
+<div id="players">
+    <span onclick="showPlayers()">showPlayers()</span>
+</div>
+
+
+<span onclick="toggleCardN()">choose your cards:</span>
+<span onclick="showCardsN(playerId, cardsN)">show cards</span>
+<div id="cardsN">
+
+</div>
+
+<span onclick="toggleCorp()">choose your corporation:</span>
+<div id="corporations">
+</div>
+
+<div class="mats">
+    <div class="mat">
+        <script>var playerId=0;</script>
+        <span onclick="getPlayerMat(playerId)">Update</span>
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                <td colspan="3" id="rating">
+
+                </td>
+            </tr>
+            <tr>
+                <td class="xresource" id="money"></td>
+                <td class="xresource" id="steel"></td>
+                <td class="xresource" id="titan"></td>
+            </tr>
+            <tr>
+                <td class="prod" id="moneyProd"></td>
+                <td class="prod" id="steelProd"></td>
+                <td class="prod" id="titanProd"></td>
+            </tr>
+            <tr>
+                <td class="prod" id="plantProd"></td>
+                <td class="prod" id="energyProd"></td>
+                <td class="prod" id="heatProd"></td>
+            </tr>
+            <tr>
+                <td class="xresource" id="plant"></td>
+                <td class="xresource" id="energy"></td>
+                <td class="xresource" id="heat"></td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<span onclick="updateHand(playerId)">update Hand:</span>
+<span onclick="toggleCard()">show your cards:</span>
+<div id="cards">
+
+</div>
+
+<div onclick="newGeneration()">New Generation</div>
+
+<div class="result">
+
+</div>
+
+
+</body>
+</html>
+

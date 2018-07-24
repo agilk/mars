@@ -78,6 +78,21 @@ public class MarsController {
     }
 
     @CrossOrigin(origins = "*")
+    @PostMapping("/getPlayerMat")
+    public Response getPlayerMat(@RequestBody Request request) {
+        Data data = new Data();
+        Response response = new Response();
+        try {
+            data.setGamePlayerMat(marsService.getPlayerMat(request.getGameId(), request.getGameHash(), request.getPlayerId()));
+            response.setData(data);
+        } catch (MarsException e) {
+            response.setError(new Error(e));
+
+        }
+        return response;
+    }
+
+    @CrossOrigin(origins = "*")
     @PostMapping("/showGenerationCards")
     public Response showGenerationCards(@RequestBody Request request) {
         Data data = new Data();
@@ -247,6 +262,7 @@ public class MarsController {
         Response response = new Response();
         try {
             data.setGameCards(marsService.newGeneration(request.getGameId(), request.getGameHash()));
+            response.setData(data);
         } catch (MarsException e) {
             response.setError(new Error(e));
 
@@ -261,6 +277,7 @@ public class MarsController {
         Response response = new Response();
         try {
             data.setGame(marsService.raiseTemperatureByHeat(request.getPlayerId(), request.getGameId(), request.getGameHash()));
+            response.setData(data);
         } catch (MarsException e) {
             response.setError(new Error(e));
 
@@ -275,6 +292,7 @@ public class MarsController {
         Response response = new Response();
         try {
             data.setGame(marsService.addGreenery(request.getPlayerId(), request.getGameId(), request.getGameHash()));
+            response.setData(data);
         } catch (MarsException e) {
             response.setError(new Error(e));
 
@@ -289,6 +307,7 @@ public class MarsController {
         Response response = new Response();
         try {
             data.setGame(marsService.addOcean(request.getPlayerId(), request.getGameId(), request.getGameHash()));
+            response.setData(data);
         } catch (MarsException e) {
             response.setError(new Error(e));
 
@@ -303,6 +322,7 @@ public class MarsController {
         Response response = new Response();
         try {
             data.setGame(marsService.addGreeneryForMoney(request.getPlayerId(), request.getGameId(), request.getGameHash()));
+            response.setData(data);
         } catch (MarsException e) {
             response.setError(new Error(e));
 

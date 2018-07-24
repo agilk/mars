@@ -82,6 +82,10 @@ public class MarsService {
         return gamePlayerMatRepository.findByGameAndPlayer(game, player);
     }
 
+    public GamePlayerMat getPlayerMat(Integer gameId, String gameHash, Integer playerId) throws MarsException{
+        return getPlayerMatByGameAndPlayerId(getGameByIdAndHash(gameId, gameHash), playerId);
+    }
+
 
     private GamePlayerMat getPlayerMatByGameAndPlayerId(Game game, Integer playerId){
         return gamePlayerMatRepository.findByGameAndPlayer(game, getPlayerById(playerId));
@@ -510,53 +514,56 @@ public class MarsService {
 
     private void raiseMat(Integer playerId, Game game, char res, boolean prod, Integer count) {
         GamePlayerMat gamePlayerMat = getPlayerMatByGameAndPlayerId(game, playerId);
-        for (int i = 0; i < count; i++) {
+        int raiser = 1;
+        if (count<0) raiser = -1;
+
+        for (int i = 0; i < Math.abs(count); i++) {
             switch (res) {
                 case 'm': {
                     if (prod) {
-                        gamePlayerMat.setProdMoney(gamePlayerMat.getProdMoney() + 1);
+                        gamePlayerMat.setProdMoney(gamePlayerMat.getProdMoney() + raiser);
                     } else {
-                        gamePlayerMat.setProdMoney(gamePlayerMat.getProdMoney() + 1);
+                        gamePlayerMat.setProdMoney(gamePlayerMat.getProdMoney() + raiser);
                     }
                     break;
                 }
                 case 's': {
                     if (prod) {
-                        gamePlayerMat.setProdSteel(gamePlayerMat.getProdSteel() + 1);
+                        gamePlayerMat.setProdSteel(gamePlayerMat.getProdSteel() + raiser);
                     } else {
-                        gamePlayerMat.setSteel(gamePlayerMat.getSteel() + 1);
+                        gamePlayerMat.setSteel(gamePlayerMat.getSteel() + raiser);
                     }
                     break;
                 }
                 case 't': {
                     if (prod) {
-                        gamePlayerMat.setProdTitan(gamePlayerMat.getProdTitan() + 1);
+                        gamePlayerMat.setProdTitan(gamePlayerMat.getProdTitan() + raiser);
                     } else {
-                        gamePlayerMat.setTitan(gamePlayerMat.getTitan() + 1);
+                        gamePlayerMat.setTitan(gamePlayerMat.getTitan() + raiser);
                     }
                     break;
                 }
                 case 'p': {
                     if (prod) {
-                        gamePlayerMat.setProdPlant(gamePlayerMat.getProdPlant() + 1);
+                        gamePlayerMat.setProdPlant(gamePlayerMat.getProdPlant() + raiser);
                     } else {
-                        gamePlayerMat.setPlant(gamePlayerMat.getPlant() + 1);
+                        gamePlayerMat.setPlant(gamePlayerMat.getPlant() + raiser);
                     }
                     break;
                 }
                 case 'e': {
                     if (prod) {
-                        gamePlayerMat.setProdEnergy(gamePlayerMat.getProdEnergy() + 1);
+                        gamePlayerMat.setProdEnergy(gamePlayerMat.getProdEnergy() + raiser);
                     } else {
-                        gamePlayerMat.setEnergy(gamePlayerMat.getEnergy() + 1);
+                        gamePlayerMat.setEnergy(gamePlayerMat.getEnergy() + raiser);
                     }
                     break;
                 }
                 case 'h': {
                     if (prod) {
-                        gamePlayerMat.setProdHeat(gamePlayerMat.getProdHeat() + 1);
+                        gamePlayerMat.setProdHeat(gamePlayerMat.getProdHeat() + raiser);
                     } else {
-                        gamePlayerMat.setHeat(gamePlayerMat.getHeat() + 1);
+                        gamePlayerMat.setHeat(gamePlayerMat.getHeat() + raiser);
                     }
                     break;
                 }
@@ -660,10 +667,10 @@ public class MarsService {
         for (int i = 0; i < card.getTerrEffRating(); i++) {
             raiseRating(playerId, game);
         }
-
+/*
         for (int i = 0; i < card.getProdEffMoney(); i++) {
             raiseRating(playerId, game);
-        }
+        }*/
 
         raiseMat(playerId, game, 'm', true, card.getProdEffMoney());
         raiseMat(playerId, game, 'm', false, card.getResEffMoney());
