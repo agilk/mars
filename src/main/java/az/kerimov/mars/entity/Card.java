@@ -160,6 +160,11 @@ public class Card {
     @Column(name = "res_eff_heat_oth")
     private Integer resEffHeatOth;
 
+    @Column(name = "eff_cost_steel")
+    private Integer effCostSteel;
+    @Column(name = "eff_cost_titan")
+    private Integer effCostTitan;
+
     @Column(name = "terr_eff_temp")
     private Integer terrEffTemp;
     @Column(name = "terr_eff_oxygen")
@@ -815,5 +820,21 @@ public class Card {
 
     public void setTerrEffPoints(Integer terrEffPoints) {
         this.terrEffPoints = terrEffPoints;
+    }
+
+    public Integer getEffCostSteel() {
+        return effCostSteel;
+    }
+
+    public void setEffCostSteel(Integer effCostSteel) {
+        this.effCostSteel = effCostSteel;
+    }
+
+    public Integer getEffCostTitan() {
+        return effCostTitan;
+    }
+
+    public void setEffCostTitan(Integer effCostTitan) {
+        this.effCostTitan = effCostTitan;
     }
 }

@@ -271,6 +271,21 @@ public class MarsController {
     }
 
     @CrossOrigin(origins = "*")
+    @PostMapping("/raisePowerProduction")
+    public Response raisePowerProduction(@RequestBody Request request) {
+        Data data = new Data();
+        Response response = new Response();
+        try {
+            data.setGamePlayerMat(marsService.raisePowerProduction(request.getGameId(), request.getGameHash(), request.getPlayerId()));
+            response.setData(data);
+        } catch (MarsException e) {
+            response.setError(new Error(e));
+
+        }
+        return response;
+    }
+
+    @CrossOrigin(origins = "*")
     @PostMapping("/raiseTemperatureByHeat")
     public Response raiseTemperatureByHeat(@RequestBody Request request) {
         Data data = new Data();

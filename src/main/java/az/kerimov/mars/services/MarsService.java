@@ -35,79 +35,79 @@ public class MarsService {
     @Autowired
     private ExceptionRepository exceptionRepository;
 
-    private Game saveGame(Game game){
+    private Game saveGame(Game game) {
         gameRepository.save(game);
         return game;
     }
 
-    private Player savePlayer(Player player){
+    private Player savePlayer(Player player) {
         playerRepository.save(player);
         return player;
     }
 
-    private GameCard saveGameCard(GameCard gameCard){
+    private GameCard saveGameCard(GameCard gameCard) {
         gameCardRepository.save(gameCard);
         return gameCard;
     }
 
 
-    private GameCorporation saveGameCorporation(GameCorporation gameCorporation){
+    private GameCorporation saveGameCorporation(GameCorporation gameCorporation) {
         gameCorporationRepository.save(gameCorporation);
         return gameCorporation;
     }
 
-    private GamePlayerCard saveGamePlayerCard(GamePlayerCard gamePlayerCard){
+    private GamePlayerCard saveGamePlayerCard(GamePlayerCard gamePlayerCard) {
         gamePlayerCardRepository.save(gamePlayerCard);
         return gamePlayerCard;
     }
 
-    private GamePlayerMat saveGamePlayerMat(GamePlayerMat gamePlayerMat){
+    private GamePlayerMat saveGamePlayerMat(GamePlayerMat gamePlayerMat) {
         gamePlayerMatRepository.save(gamePlayerMat);
         return gamePlayerMat;
     }
 
-    private MException getExceptionById(Integer id){
+    private MException getExceptionById(Integer id) {
         return exceptionRepository.findById(id);
     }
 
-    private MException getExceptionByCode(String code){
+    private MException getExceptionByCode(String code) {
         return exceptionRepository.findByCode(code);
     }
 
-    private Player getPlayerById(Integer id){
+    private Player getPlayerById(Integer id) {
         return playerRepository.findById(id);
     }
 
-    private GamePlayerMat getPlayerMatByGameAndPlayer(Game game, Player player){
+    private GamePlayerMat getPlayerMatByGameAndPlayer(Game game, Player player) {
         return gamePlayerMatRepository.findByGameAndPlayer(game, player);
     }
 
-    public GamePlayerMat getPlayerMat(Integer gameId, String gameHash, Integer playerId) throws MarsException{
+    public GamePlayerMat getPlayerMat(Integer gameId, String gameHash, Integer playerId) throws MarsException {
         return getPlayerMatByGameAndPlayerId(getGameByIdAndHash(gameId, gameHash), playerId);
     }
 
 
-    private GamePlayerMat getPlayerMatByGameAndPlayerId(Game game, Integer playerId){
+    private GamePlayerMat getPlayerMatByGameAndPlayerId(Game game, Integer playerId) {
         return gamePlayerMatRepository.findByGameAndPlayer(game, getPlayerById(playerId));
     }
 
-    private GameCard getGameCardById(Integer id){
+    private GameCard getGameCardById(Integer id) {
         return gameCardRepository.findById(id);
     }
 
-    private GameCard getGameCardByGameAndCard(Game game, Card card){
+    private GameCard getGameCardByGameAndCard(Game game, Card card) {
         return gameCardRepository.findByGameAndCard(game, card);
     }
 
-    private GamePlayerCard getPlayerCardByGameAndCard(Game game, GameCard card){
+    private GamePlayerCard getPlayerCardByGameAndCard(Game game, GameCard card) {
         return gamePlayerCardRepository.findByGameAndCard(game, card);
     }
 
-    private GameCorporation getCorporationByGameAndCorporation(Game game, Corporation corporation){
+    private GameCorporation getCorporationByGameAndCorporation(Game game, Corporation corporation) {
         return gameCorporationRepository.findByGameAndCorporation(game, corporation);
     }
 
-    private GameCorporation getCorporationById(Integer id){
+    private GameCorporation getCorporationById(Integer id) {
         return gameCorporationRepository.findById(id);
     }
 
@@ -154,9 +154,9 @@ public class MarsService {
         return getGameCardById(id).getCard();
     }
 
-    private Game getGameByIdAndHash(Integer id, String hash) throws MarsException{
+    private Game getGameByIdAndHash(Integer id, String hash) throws MarsException {
         Game game = gameRepository.findByIdAndHash(id, hash);
-        if (game == null){
+        if (game == null) {
             throw new MarsException(getExceptionByCode("GAME_NOT_FOUND"));
         }
         return game;
@@ -175,7 +175,7 @@ public class MarsService {
             saveGameCard(gameCard);
         }
 
-        for (Corporation corporation : getAllCorporationsByDecks(decks)){
+        for (Corporation corporation : getAllCorporationsByDecks(decks)) {
             GameCorporation gameCorporation = new GameCorporation(game, corporation);
             saveGameCorporation(gameCorporation);
         }
@@ -237,14 +237,14 @@ public class MarsService {
         return showCorporationCards(getGameByIdAndHash(gameId, gameHash), playerId);
     }
 
-    private List<GameCorporation> showCorporationCards(Game game, Integer playerId){
-         return gameCorporationRepository.findAllByGameAndPlayerIdAndPicked(game, playerId, 0);
+    private List<GameCorporation> showCorporationCards(Game game, Integer playerId) {
+        return gameCorporationRepository.findAllByGameAndPlayerIdAndPicked(game, playerId, 0);
 
     }
 
-    private List<GameCorporation> showCorporations(Game game, Integer playerId){
+    private List<GameCorporation> showCorporations(Game game, Integer playerId) {
         List<GameCorporation> corporations = new ArrayList<>();
-        for (int i = 0; i<2; i++){
+        for (int i = 0; i < 2; i++) {
             corporations.add(showRandomCorporation(game, playerId));
         }
         return corporations;
@@ -263,7 +263,7 @@ public class MarsService {
             for (int i = 0; i < countCard; i++) {
                 cards.add(showRandomCard(game, playerId));
             }
-        }else{
+        } else {
             cards = gameCards;
         }
         return cards;
@@ -275,7 +275,7 @@ public class MarsService {
 
     }
 
-    private List<GamePlayerCard> showPlayerUnusedCards(Game game, Player player){
+    private List<GamePlayerCard> showPlayerUnusedCards(Game game, Player player) {
         return gamePlayerCardRepository.findAllByGameAndPlayerAndGenerationId(game, player, 0);
     }
 
@@ -322,7 +322,7 @@ public class MarsService {
         return pickUpCard(playerId, game, gameCard);
     }
 
-    private GamePlayerMat setCorporationToPlayer(GamePlayerMat gamePlayerMat, GameCorporation gameCorporation){
+    private GamePlayerMat setCorporationToPlayer(GamePlayerMat gamePlayerMat, GameCorporation gameCorporation) {
         GamePlayerMat playerMat = gamePlayerMat;
         playerMat.setMoney(gameCorporation.getCorporation().getInitMoney());
         playerMat.setSteel(gameCorporation.getCorporation().getInitSteel());
@@ -336,22 +336,27 @@ public class MarsService {
         playerMat.setProdPlant(gameCorporation.getCorporation().getInitProdPlant());
         playerMat.setProdEnergy(gameCorporation.getCorporation().getInitProdEnergy());
         playerMat.setProdHeat(gameCorporation.getCorporation().getInitProdHeat());
+        playerMat.setCostSteel(gameCorporation.getCorporation().getEffCostSteel());
+        playerMat.setCostTitan(gameCorporation.getCorporation().getEffCostTitan());
+        playerMat.setPlantGreenery(gameCorporation.getCorporation().getEffPlantsGreenery());
+        playerMat.setCostStandardProjectPower(playerMat.getCostStandardProjectPower() + gameCorporation.getCorporation().getEffCostPowerTag());
+        playerMat.setEffCostPowerTag(gameCorporation.getCorporation().getEffCostPowerTag());
         saveGamePlayerMat(playerMat);
         return playerMat;
     }
 
-    private GamePlayerMat pickUpCorporation(Integer playerId, Game game, GameCorporation corporation){
+    private GamePlayerMat pickUpCorporation(Integer playerId, Game game, GameCorporation corporation) {
         Player player = getPlayerById(playerId);
         GameCorporation gameCorporation = getCorporationByGameAndCorporation(game, corporation.getCorporation());
         gameCorporation.pick();
         saveGameCorporation(gameCorporation);
         player.setCorporation(gameCorporation);
         savePlayer(player);
-        GamePlayerMat gamePlayerMat = setCorporationToPlayer(getPlayerMatByGameAndPlayerId(game, playerId), gameCorporation );
+        GamePlayerMat gamePlayerMat = setCorporationToPlayer(getPlayerMatByGameAndPlayerId(game, playerId), gameCorporation);
         return gamePlayerMat;
     }
 
-    public GamePlayerMat pickUpCorporation (Integer playerId, Integer gameId, String gameHash, Integer corporationId) throws MarsException{
+    public GamePlayerMat pickUpCorporation(Integer playerId, Integer gameId, String gameHash, Integer corporationId) throws MarsException {
         return pickUpCorporation(playerId, getGameByIdAndHash(gameId, gameHash), getCorporationById(corporationId));
     }
 
@@ -392,20 +397,21 @@ public class MarsService {
         return card;
     }
 
-    private void raiseOceans(Integer playerId, Game game) {
+    private boolean raiseOceans(Integer playerId, Game game) {
         if (game.getOceans() >= 9) {
-            return;
+            return false;
         }
         GamePlayerMat gamePlayerMat = getPlayerMatByGameAndPlayerId(game, playerId);
         game.setOceans(game.getOceans() + 1);
         saveGame(game);
         gamePlayerMat.setRating(gamePlayerMat.getRating() + 1);
         saveGamePlayerMat(gamePlayerMat);
+        return true;
     }
 
-    private void raiseOxygen(Integer playerId, Game game) {
+    private boolean raiseOxygen(Integer playerId, Game game) {
         if (game.getOxygen() >= 14) {
-            return;
+            return false;
         }
         GamePlayerMat gamePlayerMat = getPlayerMatByGameAndPlayerId(game, playerId);
         game.setOxygen(game.getOxygen() + 1);
@@ -415,11 +421,12 @@ public class MarsService {
             raiseTemperature(playerId, game);
         }
         saveGamePlayerMat(gamePlayerMat);
+        return true;
     }
 
-    private void raiseTemperature(Integer playerId, Game game) {
+    private boolean raiseTemperature(Integer playerId, Game game) {
         if (game.getTemperature() >= 8) {
-            return;
+            return false;
         }
         GamePlayerMat gamePlayerMat = getPlayerMatByGameAndPlayerId(game, playerId);
         game.setTemperature(game.getTemperature() + 2);
@@ -432,27 +439,46 @@ public class MarsService {
             raiseOceans(playerId, game);
         }
         saveGamePlayerMat(gamePlayerMat);
+        return true;
     }
 
-    public Game raiseTemperatureByHeat(Integer playerId, Integer gameId, String gameHash)  throws MarsException{
+    public GamePlayerMat raisePowerProduction(Integer gameId, String gameHash, Integer playerId) throws MarsException {
+        return raisePowerProduction(playerId, getGameByIdAndHash(gameId, gameHash));
+    }
+
+    private GamePlayerMat raisePowerProduction(Integer playerId, Game game) throws MarsException {
+        GamePlayerMat gamePlayerMat = getPlayerMatByGameAndPlayerId(game, playerId);
+        if (gamePlayerMat.getMoney() > gamePlayerMat.getCostStandardProjectPower()) {
+            gamePlayerMat.setProdEnergy(1);
+            gamePlayerMat.setMoney(gamePlayerMat.getMoney() - gamePlayerMat.getCostStandardProjectPower());
+            saveGamePlayerMat(gamePlayerMat);
+        } else {
+            throw new MarsException(getExceptionById(8));
+        }
+
+        return gamePlayerMat;
+    }
+
+    public Game raiseTemperatureByHeat(Integer playerId, Integer gameId, String gameHash) throws MarsException {
         Game game = getGameByIdAndHash(gameId, gameHash);
         raiseTemperatureByHeat(playerId, game);
         return game;
     }
 
-    private void raiseTemperatureByHeat(Integer playerId, Game game) throws  MarsException{
+    private void raiseTemperatureByHeat(Integer playerId, Game game) throws MarsException {
         GamePlayerMat gamePlayerMat = getPlayerMatByGameAndPlayerId(game, playerId);
-        if (gamePlayerMat.getHeat() >= 8) {
-            raiseTemperature(playerId, game);
-            gamePlayerMat.setHeat(gamePlayerMat.getHeat() - 8);
-            saveGamePlayerMat(gamePlayerMat);
-        }else{
+        if (gamePlayerMat.getHeat() >= gamePlayerMat.getHeatTemperature()) {
+            if (raiseTemperature(playerId, game)) {
+                gamePlayerMat.setHeat(gamePlayerMat.getHeat() - gamePlayerMat.getHeatTemperature());
+                saveGamePlayerMat(gamePlayerMat);
+            }
+        } else {
             throw new MarsException(getExceptionById(7));
         }
     }
 
 
-    public Game addGreenery(Integer playerId, Integer gameId, String gameHash) throws  MarsException{
+    public Game addGreenery(Integer playerId, Integer gameId, String gameHash) throws MarsException {
         Game game = getGameByIdAndHash(gameId, gameHash);
         addGreenery(playerId, game);
         return game;
@@ -460,35 +486,36 @@ public class MarsService {
 
     private void addGreenery(Integer playerId, Game game) throws MarsException {
         GamePlayerMat gamePlayerMat = getPlayerMatByGameAndPlayerId(game, playerId);
-        if (gamePlayerMat.getPlant() >= 8) {
+        if (gamePlayerMat.getPlant() >= gamePlayerMat.getPlantGreenery()) {
             raiseOxygen(playerId, game);
-            gamePlayerMat.setPlant(gamePlayerMat.getPlant() - 8);
+            gamePlayerMat.setPlant(gamePlayerMat.getPlant() - gamePlayerMat.getPlantGreenery());
             gamePlayerMat.setTileGreen(gamePlayerMat.getTileGreen() + 1);
             saveGamePlayerMat(gamePlayerMat);
-        }else{
+        } else {
             throw new MarsException(getExceptionById(4));
         }
     }
 
 
-
-    public Game addOcean(Integer playerId, Integer gameId, String gameHash) throws  MarsException{
+    public Game addOcean(Integer playerId, Integer gameId, String gameHash) throws MarsException {
         Game game = getGameByIdAndHash(gameId, gameHash);
         addOcean(playerId, game);
         return game;
     }
+
     private void addOcean(Integer playerId, Game game) throws MarsException {
         GamePlayerMat gamePlayerMat = getPlayerMatByGameAndPlayerId(game, playerId);
-        if (gamePlayerMat.getMoney() >= 18) {
-            raiseOceans(playerId, game);
-            gamePlayerMat.setMoney(gamePlayerMat.getMoney() - 18);
+        if (gamePlayerMat.getMoney() >= gamePlayerMat.getCostStandardProjectOcean()) {
+            if (raiseOceans(playerId, game)) {
+                gamePlayerMat.setMoney(gamePlayerMat.getMoney() - gamePlayerMat.getCostStandardProjectOcean());
+            }
             saveGamePlayerMat(gamePlayerMat);
-        }else{
+        } else {
             throw new MarsException(getExceptionById(1));
         }
     }
 
-    public Game addGreeneryForMoney(Integer playerId, Integer gameId, String gameHash) throws  MarsException{
+    public Game addGreeneryForMoney(Integer playerId, Integer gameId, String gameHash) throws MarsException {
         Game game = getGameByIdAndHash(gameId, gameHash);
         addGreeneryForMoney(playerId, game);
         return game;
@@ -501,7 +528,7 @@ public class MarsService {
             gamePlayerMat.setMoney(gamePlayerMat.getMoney() - 23);
             gamePlayerMat.setTileGreen(gamePlayerMat.getTileGreen() + 1);
             saveGamePlayerMat(gamePlayerMat);
-        }else{
+        } else {
             throw new MarsException(getExceptionById(1));
         }
     }
@@ -512,10 +539,27 @@ public class MarsService {
         saveGamePlayerMat(gamePlayerMat);
     }
 
+    private void raiseMatTag(Integer playerId, Game game, Card card) {
+        GamePlayerMat gamePlayerMat = getPlayerMatByGameAndPlayerId(game, playerId);
+
+        gamePlayerMat.setTagScience(gamePlayerMat.getTagScience()+card.getTagScence());
+        gamePlayerMat.setTagBuilding(gamePlayerMat.getTagBuilding()+card.getTagBuilding());
+        gamePlayerMat.setTagSpace(gamePlayerMat.getTagSpace()+card.getTagSpace());
+        gamePlayerMat.setTagEarth(gamePlayerMat.getTagEarth()+card.getTagEarth());
+        gamePlayerMat.setTagJovian(gamePlayerMat.getTagJovian()+card.getTagJovian());
+        gamePlayerMat.setTagMicrobe(gamePlayerMat.getTagMicrobe()+card.getTagMicrobe());
+        gamePlayerMat.setTagPlant(gamePlayerMat.getTagPlant()+card.getTagPlant());
+        gamePlayerMat.setTagAnimal(gamePlayerMat.getTagAnimal()+card.getTagAnimal());
+        gamePlayerMat.setTagVenus(gamePlayerMat.getTagVenus()+card.getTagVenus());
+        gamePlayerMat.setTagEvent(gamePlayerMat.getTagEvent()+card.getTagEvent());
+        saveGamePlayerMat(gamePlayerMat);
+
+    }
+
     private void raiseMat(Integer playerId, Game game, char res, boolean prod, Integer count) {
         GamePlayerMat gamePlayerMat = getPlayerMatByGameAndPlayerId(game, playerId);
         int raiser = 1;
-        if (count<0) raiser = -1;
+        if (count < 0) raiser = -1;
 
         for (int i = 0; i < Math.abs(count); i++) {
             switch (res) {
@@ -577,6 +621,8 @@ public class MarsService {
 
         Integer resourceMoney = 0;
 
+        if (card.getTagEnergy() > 0) card.setCost(card.getCost() + gamePlayerMat.getEffCostPowerTag());
+
         if (useResource) {
             switch (resource) {
                 case 's':
@@ -627,6 +673,34 @@ public class MarsService {
             throw new MarsException(getExceptionById(14));
         }
 
+
+        if (gamePlayerMat.getTagScience() < card.getReqScence()) {
+            throw new MarsException(getExceptionByCode("TAGS_REQUIRED_SCIENCE"));
+        }
+        if (gamePlayerMat.getTagBuilding() < card.getReqBuilding()) {
+            throw new MarsException(getExceptionByCode("TAGS_REQUIRED_BUILDING"));
+        }
+        if (gamePlayerMat.getTagSpace() < card.getReqSpace()) {
+            throw new MarsException(getExceptionByCode("TAGS_REQUIRED_SPACE"));
+        }
+        if (gamePlayerMat.getTagEarth() < card.getReqEarth()) {
+            throw new MarsException(getExceptionByCode("TAGS_REQUIRED_EARTH"));
+        }
+        if (gamePlayerMat.getTagJovian() < card.getReqJovian()) {
+            throw new MarsException(getExceptionByCode("TAGS_REQUIRED_JOVIAN"));
+        }
+        if (gamePlayerMat.getTagMicrobe() < card.getReqMicrobe()) {
+            throw new MarsException(getExceptionByCode("TAGS_REQUIRED_MICROBE"));
+        }
+        if (gamePlayerMat.getTagPlant() < card.getReqPlant()) {
+            throw new MarsException(getExceptionByCode("TAGS_REQUIRED_PLANT"));
+        }
+        if (gamePlayerMat.getTagAnimal() < card.getReqAnimal()) {
+            throw new MarsException(getExceptionByCode("TAGS_REQUIRED_ANIMAL"));
+        }
+        if (gamePlayerMat.getTagVenus() < card.getReqVenus()) {
+            throw new MarsException(getExceptionByCode("TAGS_REQUIRED_VENUS"));
+        }
     }
 
     public GamePlayerMat useCard(Integer playerId,
@@ -684,6 +758,8 @@ public class MarsService {
         raiseMat(playerId, game, 'e', false, card.getResEffEnergy());
         raiseMat(playerId, game, 'h', true, card.getProdEffHeat());
         raiseMat(playerId, game, 'h', false, card.getResEffHeat());
+
+        raiseMatTag(playerId, game, card);
 
 
         Integer cost = card.getCost();

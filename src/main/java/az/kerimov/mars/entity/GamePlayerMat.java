@@ -48,6 +48,50 @@ public class GamePlayerMat {
 
     private Integer heat;
 
+    @Column(name = "cost_steel")
+    private Integer costSteel;
+    @Column(name = "cost_titan")
+    private Integer costTitan;
+    @Column(name = "plant_greenery")
+    private Integer plantGreenery;
+    @Column(name = "heat_temperature")
+    private Integer heatTemperature;
+    @Column(name = "cost_sp_power")
+    private Integer costStandardProjectPower;
+    @Column(name = "cost_sp_temp")
+    private Integer costStandardProjectTemperature;
+    @Column(name = "cost_sp_ocean")
+    private Integer costStandardProjectOcean;
+    @Column(name = "cost_sp_green")
+    private Integer costStandardProjectGreenery;
+    @Column(name = "cost_sp_city")
+    private Integer costStandardProjectCity;
+    @Column(name = "eff_cost_power_tag")
+    private Integer effCostPowerTag;
+
+    @Column(name = "tag_science")
+    private Integer tagScience;
+    @Column(name = "tag_building")
+    private Integer tagBuilding;
+    @Column(name = "tag_space")
+    private Integer tagSpace;
+    @Column(name = "tag_energy")
+    private Integer tagEnergy;
+    @Column(name = "tag_earth")
+    private Integer tagEarth;
+    @Column(name = "tag_jovian")
+    private Integer tagJovian;
+    @Column(name = "tag_microbe")
+    private Integer tagMicrobe;
+    @Column(name = "tag_plant")
+    private Integer tagPlant;
+    @Column(name = "tag_animal")
+    private Integer tagAnimal;
+    @Column(name = "tag_venus")
+    private Integer tagVenus;
+    @Column(name = "tag_event")
+    private Integer tagEvent;
+
     @Column(name = "tile_green")
     private Integer tileGreen;
 
@@ -240,5 +284,174 @@ public class GamePlayerMat {
 
     public void setPlayer(Player player) {
         this.player = player;
+    }
+
+    public Integer getCostSteel() {
+        return costSteel;
+    }
+
+    public void setCostSteel(Integer costSteel) {
+        this.costSteel = costSteel;
+    }
+
+    public Integer getCostTitan() {
+        return costTitan;
+    }
+
+    public void setCostTitan(Integer costTitan) {
+        this.costTitan = costTitan;
+    }
+
+    public Integer getPlantGreenery() {
+        return plantGreenery;
+    }
+
+    public void setPlantGreenery(Integer plantGreenery) {
+        this.plantGreenery = plantGreenery;
+    }
+
+    public Integer getHeatTemperature() {
+        return heatTemperature;
+    }
+
+    public void setHeatTemperature(Integer heatTemperature) {
+        this.heatTemperature = heatTemperature;
+    }
+
+    public Integer getCostStandardProjectPower() {
+        return costStandardProjectPower;
+    }
+
+    public void setCostStandardProjectPower(Integer costStandardProjectPower) {
+        this.costStandardProjectPower = costStandardProjectPower;
+    }
+
+    public Integer getCostStandardProjectTemperature() {
+        return costStandardProjectTemperature;
+    }
+
+    public void setCostStandardProjectTemperature(Integer costStandardProjectTemperature) {
+        this.costStandardProjectTemperature = costStandardProjectTemperature;
+    }
+
+    public Integer getCostStandardProjectOcean() {
+        return costStandardProjectOcean;
+    }
+
+    public void setCostStandardProjectOcean(Integer costStandardProjectOcean) {
+        this.costStandardProjectOcean = costStandardProjectOcean;
+    }
+
+    public Integer getCostStandardProjectGreenery() {
+        return costStandardProjectGreenery;
+    }
+
+    public void setCostStandardProjectGreenery(Integer costStandardProjectGreenery) {
+        this.costStandardProjectGreenery = costStandardProjectGreenery;
+    }
+
+    public Integer getCostStandardProjectCity() {
+        return costStandardProjectCity;
+    }
+
+    public void setCostStandardProjectCity(Integer costStandardProjectCity) {
+        this.costStandardProjectCity = costStandardProjectCity;
+    }
+
+    public Integer getEffCostPowerTag() {
+        return effCostPowerTag;
+    }
+
+    public Integer getTagScience() {
+        return tagScience;
+    }
+
+    public void setTagScience(Integer tagScience) {
+        this.tagScience = tagScience;
+    }
+
+    public Integer getTagBuilding() {
+        return tagBuilding;
+    }
+
+    public void setTagBuilding(Integer tagBuilding) {
+        this.tagBuilding = tagBuilding;
+    }
+
+    public Integer getTagSpace() {
+        return tagSpace;
+    }
+
+    public void setTagSpace(Integer tagSpace) {
+        this.tagSpace = tagSpace;
+    }
+
+    public Integer getTagEnergy() {
+        return tagEnergy;
+    }
+
+    public void setTagEnergy(Integer tagEnergy) {
+        this.tagEnergy = tagEnergy;
+    }
+
+    public Integer getTagEarth() {
+        return tagEarth;
+    }
+
+    public void setTagEarth(Integer tagEarth) {
+        this.tagEarth = tagEarth;
+    }
+
+    public Integer getTagJovian() {
+        return tagJovian;
+    }
+
+    public void setTagJovian(Integer tagJovian) {
+        this.tagJovian = tagJovian;
+    }
+
+    public Integer getTagMicrobe() {
+        return tagMicrobe;
+    }
+
+    public void setTagMicrobe(Integer tagMicrobe) {
+        this.tagMicrobe = tagMicrobe;
+    }
+
+    public Integer getTagPlant() {
+        return tagPlant;
+    }
+
+    public void setTagPlant(Integer tagPlant) {
+        this.tagPlant = tagPlant;
+    }
+
+    public Integer getTagAnimal() {
+        return tagAnimal;
+    }
+
+    public void setTagAnimal(Integer tagAnimal) {
+        this.tagAnimal = tagAnimal;
+    }
+
+    public Integer getTagVenus() {
+        return tagVenus;
+    }
+
+    public void setTagVenus(Integer tagVenus) {
+        this.tagVenus = tagVenus;
+    }
+
+    public Integer getTagEvent() {
+        return tagEvent;
+    }
+
+    public void setTagEvent(Integer tagEvent) {
+        this.tagEvent = tagEvent;
+    }
+
+    public void setEffCostPowerTag(Integer effCostPowerTag) {
+        this.effCostPowerTag = effCostPowerTag;
+
     }
 }

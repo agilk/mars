@@ -39,6 +39,16 @@ public class Corporation {
     private Integer initProdEnergy;
     @Column(name ="init_prod_heat")
     private Integer initProdHeat;
+
+    @Column(name = "eff_cost_steel")
+    private Integer effCostSteel;
+    @Column(name = "eff_cost_titan")
+    private Integer effCostTitan;
+    @Column(name = "eff_plants_greenery")
+    private Integer effPlantsGreenery;
+    @Column(name = "eff_cost_power_tag")
+    private Integer effCostPowerTag;
+
     @Column(name ="text_effect")
     private String textEffect;
     @Column(name ="text_action")
@@ -199,5 +209,37 @@ public class Corporation {
 
     public void setTextHtml(String textHtml) {
         this.textHtml = textHtml;
+    }
+
+    public Integer getEffCostSteel() {
+        return effCostSteel;
+    }
+
+    public void setEffCostSteel(Integer effCostSteel) {
+        this.effCostSteel = effCostSteel;
+    }
+
+    public Integer getEffCostTitan() {
+        return effCostTitan;
+    }
+
+    public void setEffCostTitan(Integer effCostTitan) {
+        this.effCostTitan = effCostTitan;
+    }
+
+    public Integer getEffPlantsGreenery() {
+        return effPlantsGreenery;
+    }
+
+    public void setEffPlantsGreenery(Integer effPlantsGreenery) {
+        this.effPlantsGreenery = effPlantsGreenery;
+    }
+
+    public Integer getEffCostPowerTag() {
+        return effCostPowerTag;
+    }
+
+    public void setEffCostPowerTag(Integer effCostPowerTag) {
+        this.effCostPowerTag = effCostPowerTag;
     }
 }
