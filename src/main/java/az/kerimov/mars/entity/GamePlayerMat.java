@@ -120,6 +120,30 @@ public class GamePlayerMat {
                 this.heat = 0;
                 this.tileGreen = 0;
                 this.tileCity = 0;
+
+                this.tagScience = 0;
+                this.tagBuilding = 0;
+                this.tagSpace = 0;
+                this.tagEnergy = 0;
+                this.tagEarth = 0;
+                this.tagJovian = 0;
+                this.tagMicrobe = 0;
+                this.tagPlant = 0;
+                this.tagAnimal = 0;
+                this.tagVenus = 0;
+                this.tagEvent = 0;
+
+                this.costSteel = 2;
+                this.costTitan = 3;
+                this.plantGreenery = 8;
+                this.heatTemperature = 8;
+                this.costStandardProjectPower = 11;
+                this.costStandardProjectTemperature = 14;
+                this.costStandardProjectOcean = 18;
+                this.costStandardProjectGreenery = 23;
+                this.costStandardProjectCity = 25;
+                this.effCostPowerTag = 0;
+
                 break;
             }
             case 'm': {
@@ -138,6 +162,29 @@ public class GamePlayerMat {
                 this.heat = 0;
                 this.tileGreen = 0;
                 this.tileCity = 0;
+                this.tagScience = 0;
+                this.tagBuilding = 0;
+                this.tagSpace = 0;
+                this.tagEnergy = 0;
+                this.tagEarth = 0;
+                this.tagJovian = 0;
+                this.tagMicrobe = 0;
+                this.tagPlant = 0;
+                this.tagAnimal = 0;
+                this.tagVenus = 0;
+                this.tagEvent = 0;
+
+                this.costSteel = 2;
+                this.costTitan = 3;
+                this.plantGreenery = 8;
+                this.heatTemperature = 8;
+                this.costStandardProjectPower = 11;
+                this.costStandardProjectTemperature = 14;
+                this.costStandardProjectOcean = 18;
+                this.costStandardProjectGreenery = 23;
+                this.costStandardProjectCity = 25;
+                this.effCostPowerTag = 0;
+
                 break;
             }
         }

@@ -271,6 +271,36 @@ public class MarsController {
     }
 
     @CrossOrigin(origins = "*")
+    @PostMapping("/raiseTemperatureByHeat")
+    public Response raiseTemperatureByHeat(@RequestBody Request request) {
+        Data data = new Data();
+        Response response = new Response();
+        try {
+            data.setGamePlayerMat(marsService.raiseTemperatureByHeat(request.getPlayerId(), request.getGameId(), request.getGameHash()));
+            response.setData(data);
+        } catch (MarsException e) {
+            response.setError(new Error(e));
+
+        }
+        return response;
+    }
+
+    @CrossOrigin(origins = "*")
+    @PostMapping("/addGreenery")
+    public Response addGreenery(@RequestBody Request request) {
+        Data data = new Data();
+        Response response = new Response();
+        try {
+            data.setGamePlayerMat(marsService.addGreenery(request.getPlayerId(), request.getGameId(), request.getGameHash()));
+            response.setData(data);
+        } catch (MarsException e) {
+            response.setError(new Error(e));
+
+        }
+        return response;
+    }
+
+    @CrossOrigin(origins = "*")
     @PostMapping("/raisePowerProduction")
     public Response raisePowerProduction(@RequestBody Request request) {
         Data data = new Data();
@@ -286,27 +316,12 @@ public class MarsController {
     }
 
     @CrossOrigin(origins = "*")
-    @PostMapping("/raiseTemperatureByHeat")
-    public Response raiseTemperatureByHeat(@RequestBody Request request) {
+    @PostMapping("/raiseTemperatureByMoney")
+    public Response raiseTemperatureByMoney(@RequestBody Request request) {
         Data data = new Data();
         Response response = new Response();
         try {
-            data.setGame(marsService.raiseTemperatureByHeat(request.getPlayerId(), request.getGameId(), request.getGameHash()));
-            response.setData(data);
-        } catch (MarsException e) {
-            response.setError(new Error(e));
-
-        }
-        return response;
-    }
-
-    @CrossOrigin(origins = "*")
-    @PostMapping("/addGreenery")
-    public Response addGreenery(@RequestBody Request request) {
-        Data data = new Data();
-        Response response = new Response();
-        try {
-            data.setGame(marsService.addGreenery(request.getPlayerId(), request.getGameId(), request.getGameHash()));
+            data.setGamePlayerMat(marsService.raiseTemperatureByMoney(request.getPlayerId(), request.getGameId(), request.getGameHash()));
             response.setData(data);
         } catch (MarsException e) {
             response.setError(new Error(e));
@@ -321,7 +336,7 @@ public class MarsController {
         Data data = new Data();
         Response response = new Response();
         try {
-            data.setGame(marsService.addOcean(request.getPlayerId(), request.getGameId(), request.getGameHash()));
+            data.setGamePlayerMat(marsService.addOcean(request.getPlayerId(), request.getGameId(), request.getGameHash()));
             response.setData(data);
         } catch (MarsException e) {
             response.setError(new Error(e));
@@ -336,7 +351,7 @@ public class MarsController {
         Data data = new Data();
         Response response = new Response();
         try {
-            data.setGame(marsService.addGreeneryForMoney(request.getPlayerId(), request.getGameId(), request.getGameHash()));
+            data.setGamePlayerMat(marsService.addGreeneryForMoney(request.getPlayerId(), request.getGameId(), request.getGameHash()));
             response.setData(data);
         } catch (MarsException e) {
             response.setError(new Error(e));
@@ -344,4 +359,20 @@ public class MarsController {
         }
         return response;
     }
+
+    @CrossOrigin(origins = "*")
+    @PostMapping("/addCity")
+    public Response addCity(@RequestBody Request request) {
+        Data data = new Data();
+        Response response = new Response();
+        try {
+            data.setGamePlayerMat(marsService.addCity(request.getPlayerId(), request.getGameId(), request.getGameHash()));
+            response.setData(data);
+        } catch (MarsException e) {
+            response.setError(new Error(e));
+
+        }
+        return response;
+    }
+
 }

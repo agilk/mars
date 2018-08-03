@@ -54,3 +54,9 @@
     border-style: outset;
     border-radius: 20px;
 }
+.standardProjects{
+    text-align: left;
+    font-weight: bold;
+    font-size: 8pt;
+    cursor: hand;
+}

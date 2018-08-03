@@ -1,4 +1,3 @@
-
 var gameId;
 var gameHash;
 var players = [];
@@ -19,6 +18,14 @@ function updatePlayerMat(mat) {
     $("#plantProd").text(mat.prodPlant);
     $("#energyProd").text(mat.prodEnergy);
     $("#heatProd").text(mat.prodHeat);
+    updateGame(mat.game);
+}
+
+function updateGame(game) {
+    $("#gameGen").text(game.generation);
+    $("#gameOce").text(game.oceans);
+    $("#gameOxy").text(game.oxygen);
+    $("#gameTem").text(game.temperature);
 }
 
 function pickUpCorp(playerId, corpId) {
@@ -67,25 +74,38 @@ function pickUpCard(obj, playerId, cardId) {
 
 function useCard(obj, playerId, cardId) {
 
-        var sendData = "{\"gameId\": " + gameId + ", \"gameHash\": \"" + gameHash + "\", \"playerId\": " + playerId + ", \"cardId\":" + cardId + "}";
-        console.log(sendData);
-        $.ajax({
-            type: "POST",
-            url: "http://localhost:19001/useCard",
-            dataType: "json",
-            headers: {"Content-type": "application/json"},
-            crossDomain: true,
-            success: function (msg) {
-                console.log(msg.data);
-                //updatePlayerMat(msg.data.gamePlayerMat);
-            },
+    var resCount = '';
+    var service = 'useCard';
 
-            data: sendData
-        });
-        obj.innerText = "";
-        obj.style.width = 1;
-        obj.style.height = 1;
-        getPlayerMat(playerId);
+    if ($("#chkSteel").prop('checked')) {
+        resCount = ", \"resourceCount\": " + $("#steel").text();
+        service = 'useCardWithSteel';
+    }
+    if ($("#chkTitan").prop('checked')) {
+        resCount = ", \"resourceCount\": " + $("#titan").text();
+        service = 'useCardWithTitan';
+    }
+
+    var sendData = "{\"gameId\": " + gameId + ", \"gameHash\": \"" + gameHash + "\", \"playerId\": " + playerId + ", \"cardId\":" + cardId + resCount+ "}";
+
+    console.log(sendData);
+    $.ajax({
+        type: "POST",
+        url: "http://localhost:19001/"+service,
+        dataType: "json",
+        headers: {"Content-type": "application/json"},
+        crossDomain: true,
+        success: function (msg) {
+            console.log(msg.data);
+            //updatePlayerMat(msg.data.gamePlayerMat);
+        },
+
+        data: sendData
+    });
+    obj.innerText = "";
+    obj.style.width = 1;
+    obj.style.height = 1;
+    getPlayerMat(playerId);
 }
 
 function showPlayerCorps() {
@@ -94,10 +114,10 @@ function showPlayerCorps() {
     }
 }
 
-function showCardsN(playerId, cardsN){
+function showCardsN(playerId, cardsN) {
     $("#cardsN").html("");
     for (i in cardsN) {
-        var litext = "<div onclick='pickUpCard(this, " + playerId + ", " + cardsN[i].id + ")'>"+cardsN[i].textHtml+"</div>";
+        var litext = "<div onclick='pickUpCard(this, " + playerId + ", " + cardsN[i].id + ")'>" + cardsN[i].textHtml + "</div>";
         $("#cardsN").html($("#cardsN").html() + litext);
     }
 }
@@ -105,7 +125,7 @@ function showCardsN(playerId, cardsN){
 function showPlayer(player) {
     $("#players").html($("#players").html() + "<p>" + "<span class='player' onclick='showPlayerCorps()'>" + player.name + "</span>");
     for (i in player.corporations) {
-        var litext = player.corporations[i].textHtml.replace("</li>","</div>");
+        var litext = player.corporations[i].textHtml.replace("</li>", "</div>");
         litext = litext.replace("<li", "<div onclick='pickUpCorp(" + player.id + "," + player.corporations[i].id + ")'");
         litext = litext.replace("filterDiv filterDiv-stacked", "xxx");
         $("#corporations").html($("#corporations").html() + litext);
@@ -167,6 +187,7 @@ function getPlayerMat(playerId) {
     return corporations;
 }
 
+
 function updateHand(playerId) {
     //var cards = [];
     var sendData = "{\"gameId\": " + gameId + ", \"gameHash\": \"" + gameHash + "\", \"playerId\": " + playerId + "}";
@@ -182,7 +203,7 @@ function updateHand(playerId) {
             for (i in msg.data.gamePlayerCards) {
                 //var card = msg.data.gamePlayerCards[i].card.card;
                 //card.id = msg.data.gamePlayerCards[i].card.id;
-                var litext = "<div onclick='useCard(this, " + playerId + ", " + msg.data.gamePlayerCards[i].card.id + ")'>"+msg.data.gamePlayerCards[i].card.card.textHtml+"</div>";
+                var litext = "<div onclick='useCard(this, " + playerId + ", " + msg.data.gamePlayerCards[i].card.id + ")'>" + msg.data.gamePlayerCards[i].card.card.textHtml + "</div>";
                 $("#cards").html($("#cards").html() + litext);
             }
         },
@@ -224,7 +245,7 @@ function startNewGame() {
         headers: {"Content-type": "application/json"},
         crossDomain: true,
         success: function (msg) {
-            //console.log(msg.data);
+            console.log(msg.data);
             gameId = msg.data.game.id;
             gameHash = msg.data.game.hash;
             players = [];
@@ -246,7 +267,7 @@ function startNewGame() {
 }
 
 function newGeneration() {
-    var sendData = "{\"gameId\": "+gameId+", \"gameHash\": \""+gameHash+"\"}";
+    var sendData = "{\"gameId\": " + gameId + ", \"gameHash\": \"" + gameHash + "\"}";
     $.ajax({
         type: "POST",
         url: "http://localhost:19001/newGeneration",
@@ -269,10 +290,10 @@ function newGeneration() {
 }
 
 
-function toggleCardN(){
+function toggleCardN() {
     $("#cardsN").toggle();
 }
 
-function toggleCard(){
+function toggleCard() {
     $("#cards").toggle();
 }

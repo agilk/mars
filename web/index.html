@@ -5,6 +5,7 @@
     <title>jQuery.post demo</title>
     <script src="jquery-1.10.2.js"></script>
     <script src="mars.js"></script>
+    <script src="standard_projects.js"></script>
     <link href="main.css" rel="stylesheet" type="text/css"/>
     <link href="https://ssimeonoff.github.io/mystyles.css" rel="stylesheet" />
 
@@ -35,10 +36,29 @@
 <div id="corporations">
 </div>
 
+<div class="game">
+    <table cellspacing="0" cellpadding="0">
+        <tr>
+            <td>Generation</td>
+            <td>Oceans</td>
+            <td>Oxygen</td>
+            <td>Temperature</td>
+        </tr>
+        <tr>
+            <td id="gameGen"></td>
+            <td id="gameOce"></td>
+            <td id="gameOxy"></td>
+            <td id="gameTem"></td>
+        </tr>
+    </table>
+</div>
+
 <div class="mats">
     <div class="mat">
         <script>var playerId=0;</script>
         <span onclick="getPlayerMat(playerId)">Update</span>
+        <input id="chkSteel" type="checkbox"> S
+        <input id="chkTitan" type="checkbox"> T
         <table cellpadding="0" cellspacing="0">
             <tr>
                 <td colspan="3" id="rating">
@@ -64,6 +84,19 @@
                 <td class="xresource" id="plant"></td>
                 <td class="xresource" id="energy"></td>
                 <td class="xresource" id="heat"></td>
+            </tr>
+            <tr class="standardProjects">
+                <td colspan="3">
+                    <ul>
+                        <li onclick="standardProjectPower(playerId)">+ Power Prod (11)</li>
+                        <li onclick="standardProjectTemp(playerId)">+ Temperature (14)</li>
+                        <li onclick="standardProjectOcean(playerId)">+ Ocean (18)</li>
+                        <li onclick="standardProjectGreen(playerId)">+ Greenery (23)</li>
+                        <li onclick="standardProjectCity(playerId)">+ City (25)</li>
+                        <li onclick="addGreenery(playerId)"> Add Greenery</li>
+                        <li onclick="raiseTemperatureByHeat(playerId)"> Raise Temperature</li>
+                    </ul>
+                </td>
             </tr>
         </table>
     </div>
